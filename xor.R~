@@ -1,0 +1,24 @@
+#install.packages("e0171")
+#install.packages("kernlab")
+
+library(e1071)
+library(kernlab)
+
+x <- c(0,0,1,1)
+y <- c(0,1,0,1)
+class <- factor(c(1,-1,-1,1))
+d = data.frame(x=x,y=y,class=class)
+
+model = svm(class ~ x + y, data=d)
+plot(model,d)
+savePlot("xorClassification.png")
+
+#alternative method
+#model.ksvm = ksvm(class ~ x + y , data =d ,type="C-svc")
+#plot(model.ksvm,data=d)
+
+
+
+
+
+

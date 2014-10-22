@@ -1,0 +1,125 @@
+1. Paper on Asirra Captcha challenge.
+
+An Asirra challenge consists of 12
+images, each of which is of either a cat or a dog. To solve
+the CAPTCHA, the user must select all the cat images,
+and none of the dog images. This is a task that humans
+are very good at. According to [7], Asirra “can be solved
+ by humans 99.6% of the time in under 30 seconds”. The
+  usability of Asirra is a significant advantage compared to
+   CAPTCHAs [9] based on recognizing distorted strings of
+  letters and numbers.
+
+
+A classifier based
+ on color features, described in [7], is only 56.9% accurate.
+
+
+With a 60% accurate classifier, the probability of
+ solving a 12-image Asirra challenge is only about 0.2%.
+
+
+In this paper, we describe a classifier which is 82.7% ac-
+ curate in telling apart the images of cats and dogs used in
+Asirra. This classifier allows us to solve a 12-image Asirra
+ challenge with probability 10.3%. This success probability
+is significantly higher than the 0.2% estimate given in [7] for
+ machine vision attacks.
+
+Our classifier is a combination of two support-vector ma-
+ chine [5] (SVM) classifiers trained on color and texture fea-
+  tures of images.
+
+2. Algorithm
+
+1. Images are 250 by 250
+
+2. WHY SVM selected?
+
+Building a classifier. We experimented with different
+color and texture features computed from images. These
+features are described in the rest of this section. We trained
+a support vector machine (SVM) classifier [5] with each set
+of features. SVM classifiers were selected for their ability
+to extract linear combination of features, their predictive
+power, and their computational scalability. We refer the
+reader to [10] for an excellent introduction to SVM (chapter
+12), and a comparison of the characteristics of SVMs and
+other learning methods (page 313). In short, a SVM is a su-
+pervised learning method which constructs an optimal linear
+boundary (or separating hyperplane) between two classes.
+This hyperplane is optimal in the sense that it maximizes the
+distance, or margins, between the hyperplane and the two
+classes on each side of it (an error penalty accounts for mis-
+classified points, when the two classes are not perfectly lin-
+early separable). The power of SVM classifiers comes from
+the fact that the linear boundary is not computed directly in
+feature space, but in a transformed, higher-dimensional ver-
+sion of the feature space. The transformation is represented,
+loosely speaking, by a kernel function. Linear boundaries in
+the transformed space produce non-linear boundaries when
+mapped back to the original feature space.
+
+
+3. SVM implementation. We trained our SVM with a radial
+basis kernel. This kernel defines the inner product of two
+feature vectors v and v as
+K(v, v ) = exp (−γ|v − v |2 ).
+The parameter γ was tuned with 5-fold cross-validation to
+approximately achieve the best test error performance. We
+found that γ = 10−3 worked well for color features and
+γ = 10−1 worked well for texture features.
+
+------------
+
+In short.
+
+---- For SVM 1 : Color features -----
+
+1. Image selected of 250 by 250 pixels.
+
+2. Divide the image into N horizontal and vertical strips of equal width. 
+
+3. Grid of N^2 cells obtained.
+
+4. HSV model is used. (google/refer to paper) 
+
+4.1 Hue channel -> Ch bands of equal width
+	Saturation -> Cs
+	Value -> Cv
+
+	Color space therefor partitioned in Ch*Cs*Cv color regions
+
+4.2 Feature fector indicates for each cell in image whether there is at least one pixel in the cell which belongs to the color region. 
+
+4.3 More precisely, feature vector is a boolean vectore of length N^2 * Ch * Cs * Cv
+
+---- For SVM 2 : Texture features -----
+
+1. Extract sub-images(5 by 5 pixels) from training images of cats and dogs. Call these sub images texture tiles.
+
+2. Selecting texture tiles
+
+Algo :
+
+1. Image selected of 250 by 250 pixels.
+
+2. Divide the image into N(5 here) horizontal and vertical strips of equal width. 2500 feature tiles obtained. Call this set T0.
+
+3. For subset from T0, T of size t such that ED between tiles is greater than a cetain fixed threshold.
+
+	ED between tiles = avg ED between tiles in RGB color space.
+
+4. Feature vector here = distance between image and each of the t texture tiles in T
+
+	Algo:
+
+	1. Distance between each subimage(2500 in total) and texture tile T = Max. of euclidean disatnce between their pixels in RGB space
+
+	2. Distance between complete image and T = min(all distances measured above)
+
+	3. Distances are normalized to [0,1] range.
+
+--- Combining ---
+
+1. Finally the results from SVM are combined to give output with 2/3 weightage for SVM2 and 1/3 for SVM 1.

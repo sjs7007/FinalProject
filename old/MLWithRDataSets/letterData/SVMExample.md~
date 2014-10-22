@@ -1,0 +1,82 @@
+# SVM Example from ML with R book.
+
+1.Step 1 : Collecting data.
+
+2.Step 2 : Explore and prepare data.
+
+```
+letters <-read.csv("letterdata.csv")
+str(letters)
+```
+
++ 2.1 : Preparing data.
+
+	+ SVM learners require all features to be numeric and each feature scaled to a fairly small interval.
+
+    + Here every feature is an integer so we do not need to convert any factors into numbers.
+
+    + However ranges for some variables is wide. We still don't need to manually normalize it because the R package
+       used for SVM will do it automatically for us.
+
+    + Now divide data into training set and test set. 80:20
+
+	```
+	letters_train <- letters[1:16000, ]
+	letters_test <- letters[16001:20000, ]
+	```
+
++ Step 3 : Training a model on data.
+
+	+ Install and load needed package , kernlab.
+
+		```
+		install.packages("kernlab")
+		library(kernlab)
+		```
+	+ Syntax
+
+	![Kernlab](KernlabPackage.png)
+
+	+ The ksvm() function uses the Gaussian RBF kernel by default, however a number of other options are available as well. 
+
+	```
+        letter_classifier <- ksvm(letter ~ . , data=letters_train, kernel="vanilladot")
+	letter_classifier
+        ```
+
++ Step 4 : Evaluating Model Performance.
+
+    + We make predictions on the dataset using predict() function and letter classifier model.
+
+    + The code below wil make predictions on input data. For summary, table it. Next, calculate overall accuracy.
+	
+    ```
+    letter_predictions <- predict(letter_classifier, letters_test)
+    table(letter_predictions, letters_test$letter)
+    agreement <- letter_predictions == letters_test$letter
+    table(agreement)
+    prop.table(table(agreement))
+    ```
+    
+    Output : 0.83925
+
++ Step 5 : Improving Model Performance.
+
+    + By using a more complex kernel function, we can map data into a higher dimensional space 
+        and obtain a better fit.
+
+    + It can be challenging to decide this. The convention is to begin with Gaussian RBF Kernel which has been shown to perform well
+    for many types of data.
+
+    ```
+    letter_classifier_rbf <- ksvm(letter ~ . , data = letters_train, kernel = "rbfdot")
+    letter_predictions_rbf <- predict(letter_classifier_rbf,letters_test)
+    agreement_rbf <- letter_predictions_rbf == letters_test$letter
+    table(agreement_rbf)
+    agreement_rbf
+    prop.table(table(agreement_rbf))
+    ```
+	
+    Output : 0.92975
+
++[Link to showterm recording.]()
