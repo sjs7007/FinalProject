@@ -55,19 +55,22 @@ class ML
         BufferedImage image;
         int width, height,count=0; 
         
-        hsv hsvImage[][]=new hsv[250][250]; //read only 250*250 images
-            
         File input = new File(ip);
         image = ImageIO.read(input);
         width = image.getWidth();
         height = image.getHeight();
+        
+        hsv hsvImage[][]=new hsv[width][height];       
+    
         for(int i=0;i<height;i++)
         {
             for(int j=0;j<width;j++)
             {
                 count++;
                 Color c = new Color(image.getRGB(j, i));
-                System.out.println("S.No: "+count+" Red: " + c.getRed() +" Green: " + c.getGreen() + " Blue: " + c.getBlue());
+                System.out.println("S.No: "+count+" Red : " + c.getRed() +" Green: " + c.getGreen() + " Blue: " + c.getBlue());
+                hsvImage[j][i]=new hsv(c.getRed(),c.getGreen(),c.getBlue());
+                System.out.println("S.No: "+count+" Hue : " + hsvImage[j][i].h +" Saturation : " + hsvImage[j][i].s + " Value : " + hsvImage[j][i].v);
             }
         }
         
@@ -76,8 +79,10 @@ class ML
 	
     public static void main(String args[]) throws IOException
     {
-        /*img2RGB2HSV("blackandwhite.jpg");*/
-        hsv test = new hsv(10,10,20);
-        test.display();
+        img2RGB2HSV("blackandwhite.jpg");
+        /*hsv test = new hsv(10,10,20);
+        test.display();*/
+        
+     
     }
 }
