@@ -126,6 +126,7 @@ class ML
                             
                             temp[i][j][h][s][v]=(hP)&(sP)&(vP);
                             feature[count]=temp[i][j][h][s][v];
+                            System.out.println(count+" "+feature[count]+" "+hsvImage[i][j].h);
                             count++;
                         }
                     }
@@ -144,7 +145,7 @@ class ML
             for(int j=0;j<N;j++)
             {
                 float temp = hsvCell[i][j].getHSV()[type];
-                if(temp>=low && temp<=high)
+                if(temp>=low && temp<high)
                 {
                     ans=true;
                     break;
@@ -162,9 +163,9 @@ class ML
         int N=5,C_h=10,C_s=6,C_v=6;
         boolean colorFeatures[] = colorFeatureBuilder(img2RGB2HSV("dog.55.jpg"), N, C_h, C_s, C_v);
         
-        for(int i=0;i<colorFeatures.length;i++)
+        /*for(int i=0;i<colorFeatures.length;i++)
         {
             System.out.println(i+" : "+colorFeatures[i]);
-        }
+        }*/
     }
 }
