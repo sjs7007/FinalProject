@@ -1,19 +1,23 @@
 // 1. Image to RGB : http://www.tutorialspoint.com/java_dip/understand_image_pixels.htm
 // 2. RGB to HSV : http://stackoverflow.com/a/2399174
+// 3. write hsv image back as rgb image to file : http://www.lac.inpe.br/JIPCookbook/1300-create-rgb.jsp
 
 import java.awt.*; // #1,#2
 import java.awt.image.BufferedImage; //#1
 import java.io.*; // #1
 import javax.imageio.ImageIO; //#1
 //import javax.swing.JFrame;  //#1
+import java.awt.image.WritableRaster; //#3
+
 
 class  hsv //ADT to store HSV values.
 {
     float h,s,v;
+    float[] hsv = new float[3];
     
     hsv(int r,int g,int b) //convert rgb to hsv and store
     {
-        float[] hsv = new float[3];
+        
         Color.RGBtoHSB(r,g,b,hsv);
         h=hsv[0];
         s=hsv[1];
@@ -24,6 +28,12 @@ class  hsv //ADT to store HSV values.
     {
         System.out.println("HSV : "+h+","+s+","+v);
     }
+    
+    public float[] getHSV()
+    {
+        return hsv;
+    }
+    
 }
 
 class ML
@@ -52,12 +62,31 @@ class ML
             }
         }
         
+        HSV2File(hsvImage,width,height);
+        
         return hsvImage;
     }
 	
+    public static void HSV2File(hsv hsvImage[][], int width, int height) throws IOException //store img output as hsv2file.png
+    {
+        BufferedImage image = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
+        WritableRaster raster = image.getRaster();
+        for(int i=0;i<height;i++)
+        {
+            for(int j=0;j<width;j++)
+            {
+                int RGB = Color.HSBtoRGB(hsvImage[j][i].h,hsvImage[j][i].s,hsvImage[j][i].v);
+                Color c = new Color(RGB);
+                int temp[]={c.getRed(),c.getBlue(),c.getGreen()};
+                raster.setPixel(j,i,temp);
+            }
+        }
+        ImageIO.write(image,"PNG",new File("hsv2file.png"));
+    }
+    
     public static void main(String args[]) throws IOException
     {
-        img2RGB2HSV("blackandwhite.jpg");
+        img2RGB2HSV("dog.55.jpg");
         /*hsv test = new hsv(10,10,20);
         test.display();*/
     }
