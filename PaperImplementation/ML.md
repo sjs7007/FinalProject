@@ -19,3 +19,11 @@ Step 1 :
 	![HSV2RGB](sample/dog.55hsv2file.png)
 
 	Fixed : RGB order was off. No more problem now. 
+
+Step 2 : 
+
++ Cell size = 250/N.
++ Split each h,s,v into c_h, c_s and c_v bands of equal width.
++ temp data type of cell size * cell size * c_h * c_s * c-s as a boolean 5D array indicating whether each cell has h,s,v belonging to  
+[1...N][1...N][1...C_h][1...C_s][1.....C_v]
++ extract cells from matrix : [code](trash/testExtractCells.java)
