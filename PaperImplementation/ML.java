@@ -77,7 +77,7 @@ class ML
             {
                 int RGB = Color.HSBtoRGB(hsvImage[j][i].h,hsvImage[j][i].s,hsvImage[j][i].v);
                 Color c = new Color(RGB);
-                int temp[]={c.getRed(),c.getBlue(),c.getGreen()};
+                int temp[]={c.getRed(),c.getGreen(),c.getBlue()};
                 raster.setPixel(j,i,temp);
             }
         }

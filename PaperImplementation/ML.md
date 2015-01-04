@@ -17,3 +17,5 @@ Step 1 :
 
 	![HSV2RGB](sample/dog.55.jpg)
 	![HSV2RGB](sample/dog.55hsv2file.png)
+
+	Fixed : RGB order was off. No more problem now. 
