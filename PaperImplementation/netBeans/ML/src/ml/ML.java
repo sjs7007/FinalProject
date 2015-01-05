@@ -1,8 +1,22 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ml;
+
+/**
+ *
+ * @author shinchan
+ */
+
 // 1. Image to RGB : http://www.tutorialspoint.com/java_dip/understand_image_pixels.htm
 // 2. RGB to HSV : http://stackoverflow.com/a/2399174
 // 3. write hsv image back as rgb image to file : http://www.lac.inpe.br/JIPCookbook/1300-create-rgb.jsp
 // 4. Splite hsv image into smaller cells : trash/testExtractCells
 
+import cern.colt.bitvector.BitMatrix;
+import cern.colt.bitvector.BitVector;
 import extendingLibrary.MyBitMatrix;
 import java.awt.*; // #1,#2
 import java.awt.image.BufferedImage; //#1
@@ -11,7 +25,6 @@ import javax.imageio.ImageIO; //#1
 //import javax.swing.JFrame;  //#1
 import java.awt.image.WritableRaster; //#3
 
-import cern.colt.bitvector.BitVector;
 
 class  hsv //ADT to store HSV values.
 {
@@ -86,10 +99,10 @@ class ML
         ImageIO.write(image,"PNG",new File("hsv2file.png"));
     }
     
-    public static boolean[] colorFeatureBuilder(hsv hsvImage[][],int N,int C_h,int C_s,int C_v)
+    public static BitVector colorFeatureBuilder(hsv hsvImage[][],int N,int C_h,int C_s,int C_v)
     {
         BitVector feature=new BitVector(N*N*C_h*C_s*C_v); //color feature vector
-        MyBitMatrix temp[][][][][]=new MyBitMatrix[N][N][C_h][C_s][C_v]; // true if for cell i,j at least one pixel belongs to specific hsv range
+        //MyBitMatrix temp=new MyBitMatrix(N,N,C_h,C_s,C_v); // true if for cell i,j at least one pixel belongs to specific hsv range
         
         float Ch=C_h,Cs=C_s,Cv=C_v;
         
@@ -114,13 +127,9 @@ class ML
                 //now hsvCell = small seperate portion of whole hsv image
                 for(int h=0;h<C_h;h++)
                 {
-                    MyBitMatrix hP[][]=new MyBitMatrix[cellSize][cellSize];
-                    MyBitMatrix sP[][]=new MyBitMatrix[cellSize][cellSize];
-                    MyBitMatrix vP[][]=new MyBitMatrix[cellSize][cellSize];
-                    
+                    BitMatrix hP=new BitMatrix(cellSize,cellSize), sP=new BitMatrix(cellSize, cellSize) ,vP=new BitMatrix(cellSize,cellSize);
                     float low=(h/Ch),high=(h+1)/Ch;
                     // if any h value in hsvCell belongs to range [h/C_h,h+1/C_h] hP=true
-                    
                     hP = isInRange(hsvCell,cellSize,low,high,0);
                     
                     for(int s=0;s<C_s;s++)
@@ -135,10 +144,18 @@ class ML
                             high=(v+1)/Cv;
                             vP = isInRange(hsvCell, cellSize, low, high, 2);
                             
-                            temp[i][j][h][s][v]=(hP)&(sP)&(vP);
+                           /* temp[i][j][h][s][v]=(hP)&(sP)&(vP);
                             feature[count]=temp[i][j][h][s][v];
                             System.out.println(count+" "+feature[count]+" "+hsvImage[i][j].h);
                             //System.out.println(i+" "+j+" "+h+" "+s+" "+v+" "+hsvImage[i][j].h); //
+                            */
+                            
+                            //BitMatrix temp = new BitMatrix(cellSize,cellSize);
+                            sP.and(vP);
+                            hP.and(sP);
+                            
+                            feature.put(count, isAnyTrue(hP));
+                            System.out.println(count+" "+feature.get(count)+" "+hsvImage[i][j].h);
                             count++;
                         }
                     }
@@ -148,9 +165,9 @@ class ML
         return feature;
     }
     
-    public static MyBitMatrix[] isInRange(hsv hsvCell[][],int cellSize,float low,float high,int type) //type=0,compare hue, 1 saturation
+    public static BitMatrix isInRange(hsv hsvCell[][],int cellSize,float low,float high,int type) //type=0,compare hue, 1 saturation
     {
-        MyBitMatrix ans=new MyBitMatrix[cellSize][cellSize];
+        BitMatrix ans=new BitMatrix(cellSize,cellSize);
         
         for(int i=0;i<cellSize;i++)
         {
@@ -160,8 +177,24 @@ class ML
                // System.out.println(temp+" "+low+" "+high);
                 if(temp>=low && temp<high)
                 {
-                    ans,t
-                 
+                    ans.put(i, j, true);
+                }
+            }
+        }
+        return ans;
+    }
+    
+    public static boolean isAnyTrue(BitMatrix temp)
+    {
+        boolean ans=false;
+        for(int i=0;i<temp.rows();i++)
+        {
+            for(int j=0;j<temp.columns();j++)
+            {
+                if(temp.get(i, j))
+                {
+                    ans=true;
+                    break;
                 }
             }
         }
@@ -173,12 +206,14 @@ class ML
         // img2RGB2HSV("dog.55.jpg");
         /*hsv test = new hsv(10,10,20);
         test.display();*/
-        int N=5,C_h=10,C_s=6,C_v=6;
-        boolean colorFeatures[] = colorFeatureBuilder(img2RGB2HSV("dog.55.jpg"), N, C_h, C_s, C_v);
+       int N=5,C_h=10,C_s=6,C_v=6;
+       colorFeatureBuilder(img2RGB2HSV("/home/shinchan/FinalProject/PaperImplementation/netBeans/ML/src/ml/dog.55.jpg"), N, C_h, C_s, C_v);
         
         /*for(int i=0;i<colorFeatures.length;i++)
         {
             System.out.println(i+" : "+colorFeatures[i]);
         }*/
+        
+        
     }
 }
