@@ -102,7 +102,7 @@ class ML
     public static BitVector colorFeatureBuilder(hsv hsvImage[][],int N,int C_h,int C_s,int C_v)
     {
         BitVector feature=new BitVector(N*N*C_h*C_s*C_v); //color feature vector
-        //MyBitMatrix temp=new MyBitMatrix(N,N,C_h,C_s,C_v); // true if for cell i,j at least one pixel belongs to specific hsv range
+        //MyMyBitMatrix temp=new MyMyBitMatrix(N,N,C_h,C_s,C_v); // true if for cell i,j at least one pixel belongs to specific hsv range
         
         float Ch=C_h,Cs=C_s,Cv=C_v;
         
@@ -131,31 +131,40 @@ class ML
                     float low=(h/Ch),high=(h+1)/Ch;
                     // if any h value in hsvCell belongs to range [h/C_h,h+1/C_h] hP=true
                     hP = isInRange(hsvCell,cellSize,low,high,0);
-                    
+                    if(count==0)
+                    {
+                         System.out.println("hp \n"+hP.toString());
+                        
+                    }
                     for(int s=0;s<C_s;s++)
                     {
                         low=s/Cs;
                         high=(s+1)/Cs;
                         sP = isInRange(hsvCell, cellSize, low, high, 1);
-                        
+                        if(count==0)
+                            System.out.println("sp \n"+sP.toString());
+
                         for(int v=0;v<C_v;v++)
                         {
                             low=v/Cv;
                             high=(v+1)/Cv;
                             vP = isInRange(hsvCell, cellSize, low, high, 2);
                             
+                            if(count==0)
+                                System.out.println("vp \n"+vP.toString());
+
                            /* temp[i][j][h][s][v]=(hP)&(sP)&(vP);
                             feature[count]=temp[i][j][h][s][v];
                             System.out.println(count+" "+feature[count]+" "+hsvImage[i][j].h);
                             //System.out.println(i+" "+j+" "+h+" "+s+" "+v+" "+hsvImage[i][j].h); //
                             */
                             
-                            //BitMatrix temp = new BitMatrix(cellSize,cellSize);
+                            //MyBitMatrix temp = new MyBitMatrix(cellSize,cellSize);
                             sP.and(vP);
                             hP.and(sP);
                             
                             feature.put(count, isAnyTrue(hP));
-                            System.out.println(count+" "+feature.get(count)+" "+hsvImage[i][j].h);
+                           // System.out.println(count+" "+feature.get(count)+" "+hsvImage[i][j].h);
                             count++;
                         }
                     }
@@ -178,6 +187,10 @@ class ML
                 if(temp>=low && temp<high)
                 {
                     ans.put(i, j, true);
+                }
+                else
+                {
+                    ans.put(i, j, false);
                 }
             }
         }
