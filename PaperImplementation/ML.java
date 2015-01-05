@@ -48,7 +48,7 @@ class ML
         width = image.getWidth();
         height = image.getHeight();
         
-        hsv hsvImage[][]=new hsv[width][height];       
+        hsv hsvImage[][]=new hsv[height][width];       
     
         for(int i=0;i<height;i++)
         {
@@ -57,7 +57,7 @@ class ML
               //  count++;
                 Color c = new Color(image.getRGB(j, i));
                 //System.out.println("S.No: "+count+" Red : " + c.getRed() +" Green: " + c.getGreen() + " Blue: " + c.getBlue());
-                hsvImage[j][i]=new hsv(c.getRed(),c.getGreen(),c.getBlue());
+                hsvImage[i][j]=new hsv(c.getRed(),c.getGreen(),c.getBlue());
                 //System.out.println("S.No: "+count+" Hue : " + hsvImage[j][i].h +" Saturation : " + hsvImage[j][i].s + " Value : " + hsvImage[j][i].v);
             }
         }
@@ -75,7 +75,7 @@ class ML
         {
             for(int j=0;j<width;j++)
             {
-                int RGB = Color.HSBtoRGB(hsvImage[j][i].h,hsvImage[j][i].s,hsvImage[j][i].v);
+                int RGB = Color.HSBtoRGB(hsvImage[i][j].h,hsvImage[i][j].s,hsvImage[i][j].v);
                 Color c = new Color(RGB);
                 int temp[]={c.getRed(),c.getGreen(),c.getBlue()};
                 raster.setPixel(j,i,temp);
