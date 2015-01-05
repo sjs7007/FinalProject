@@ -126,8 +126,8 @@ class ML
                             
                             temp[i][j][h][s][v]=(hP)&(sP)&(vP);
                             feature[count]=temp[i][j][h][s][v];
-                            System.out.println(count+" "+feature[count]+" "+hsvImage[i][j].h);
-                            //System.out.println(i+" "+j+" "+h+" "+s+" "+v); //+" "+hsvImage[i][j].h
+                            //System.out.println(count+" "+feature[count]+" "+hsvImage[i][j].h);
+                            System.out.println(i+" "+j+" "+h+" "+s+" "+v); //+" "+hsvImage[i][j].h
                             count++;
                         }
                     }
