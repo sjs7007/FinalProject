@@ -102,8 +102,11 @@ class ML
                     {
                         //System.out.println(i+" "+j+" "+p+" "+q);
                         hsvCell[p-(i*cellSize)][q-(j*cellSize)]=hsvImage[p][q];
+                        hsvImage[p][q].display();
                     }
+                    System.out.println();
                 }              
+                System.out.println();
                 //now hsvCell = small seperate portion of whole hsv image
                 for(int h=0;h<C_h;h++)
                 {
@@ -127,7 +130,7 @@ class ML
                             temp[i][j][h][s][v]=(hP)&(sP)&(vP);
                             feature[count]=temp[i][j][h][s][v];
                             //System.out.println(count+" "+feature[count]+" "+hsvImage[i][j].h);
-                            System.out.println(i+" "+j+" "+h+" "+s+" "+v); //+" "+hsvImage[i][j].h
+                            //System.out.println(i+" "+j+" "+h+" "+s+" "+v+" "+hsvImage[i][j].h); //
                             count++;
                         }
                     }

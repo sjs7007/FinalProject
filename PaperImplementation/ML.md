@@ -27,3 +27,7 @@ Step 2 :
 + temp data type of cell size * cell size * c_h * c_s * c-s as a boolean 5D array indicating whether each cell has h,s,v belonging to  
 [1...N][1...N][1...C_h][1...C_s][1.....C_v]
 + extract cells from matrix : [code](trash/testExtractCells.java)
++ get feature array
++ flatten into vector
+	+ [stack oveflow](http://stackoverflow.com/questions/2569279/how-to-flatten-2d-array-to-1d-array)
+	+ [how to use .jar files](http://stackoverflow.com/questions/460364/how-to-use-classes-from-jar-files)
