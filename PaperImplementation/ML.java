@@ -89,6 +89,8 @@ class ML
         boolean feature[]=new boolean[N*N*C_h*C_s*C_v]; //color feature vector
         boolean temp[][][][][]=new boolean[N][N][C_h][C_s][C_v]; // true if for cell i,j at least one pixel belongs to specific hsv range
         
+        float Ch=C_h,Cs=C_s,Cv=C_v;
+        
         int cellSize=250/N, count=0;
         
         for(int i=0;i<N;i++)
@@ -102,34 +104,34 @@ class ML
                     {
                         //System.out.println(i+" "+j+" "+p+" "+q);
                         hsvCell[p-(i*cellSize)][q-(j*cellSize)]=hsvImage[p][q];
-                        hsvImage[p][q].display();
+                       // hsvImage[p][q].display();
                     }
-                    System.out.println();
+                  //  System.out.println();
                 }              
-                System.out.println();
+               // System.out.println();
                 //now hsvCell = small seperate portion of whole hsv image
                 for(int h=0;h<C_h;h++)
                 {
                     boolean hP=false,sP=false,vP=false;
-                    float low=(h/C_h),high=(h+1)/C_h;
+                    float low=(h/Ch),high=(h+1)/Ch;
                     // if any h value in hsvCell belongs to range [h/C_h,h+1/C_h] hP=true
-                    hP = isInRange(hsvCell,N,low,high,0);
+                    hP = isInRange(hsvCell,cellSize,low,high,0);
                     
                     for(int s=0;s<C_s;s++)
                     {
-                        low=s/C_s;
-                        high=(s+1)/C_s;
-                        sP = isInRange(hsvCell, N, low, high, 1);
+                        low=s/Cs;
+                        high=(s+1)/Cs;
+                        sP = isInRange(hsvCell, cellSize, low, high, 1);
                         
                         for(int v=0;v<C_v;v++)
                         {
-                            low=v/C_v;
-                            high=(v+1)/C_v;
-                            vP = isInRange(hsvCell, N, low, high, 2);
+                            low=v/Cv;
+                            high=(v+1)/Cv;
+                            vP = isInRange(hsvCell, cellSize, low, high, 2);
                             
                             temp[i][j][h][s][v]=(hP)&(sP)&(vP);
                             feature[count]=temp[i][j][h][s][v];
-                            //System.out.println(count+" "+feature[count]+" "+hsvImage[i][j].h);
+                            System.out.println(count+" "+feature[count]+" "+hsvImage[i][j].h);
                             //System.out.println(i+" "+j+" "+h+" "+s+" "+v+" "+hsvImage[i][j].h); //
                             count++;
                         }
@@ -140,15 +142,16 @@ class ML
         return feature;
     }
     
-    public static boolean isInRange(hsv hsvCell[][],int N,float low,float high,int type) //type=0,compare hue, 1 saturation
+    public static boolean isInRange(hsv hsvCell[][],int cellSize,float low,float high,int type) //type=0,compare hue, 1 saturation
     {
         boolean ans=false;
         
-        for(int i=0;i<N;i++)
+        for(int i=0;i<cellSize;i++)
         {
-            for(int j=0;j<N;j++)
+            for(int j=0;j<cellSize;j++)
             {
                 float temp = hsvCell[i][j].getHSV()[type];
+               // System.out.println(temp+" "+low+" "+high);
                 if(temp>=low && temp<high)
                 {
                     ans=true;
