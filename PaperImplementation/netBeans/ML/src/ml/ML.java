@@ -102,7 +102,7 @@ class ML
     public static BitVector colorFeatureBuilder(hsv hsvImage[][],int N,int C_h,int C_s,int C_v)
     {
         BitVector feature=new BitVector(N*N*C_h*C_s*C_v); //color feature vector
-        //MyMyBitMatrix temp=new MyMyBitMatrix(N,N,C_h,C_s,C_v); // true if for cell i,j at least one pixel belongs to specific hsv range
+        //MyMyMyBitMatrix temp=new MyMyMyBitMatrix(N,N,C_h,C_s,C_v); // true if for cell i,j at least one pixel belongs to specific hsv range
         
         float Ch=C_h,Cs=C_s,Cv=C_v;
         
@@ -125,45 +125,43 @@ class ML
                 }              
                // System.out.println();
                 //now hsvCell = small seperate portion of whole hsv image
+                int x=0;
+                String temp4="";
+                
                 for(int h=0;h<C_h;h++)
                 {
-                    BitMatrix hP=new BitMatrix(cellSize,cellSize), sP=new BitMatrix(cellSize, cellSize) ,vP=new BitMatrix(cellSize,cellSize);
+                    MyBitMatrix hP=new MyBitMatrix(cellSize,cellSize), sP=new MyBitMatrix(cellSize, cellSize) ,vP=new MyBitMatrix(cellSize,cellSize);
                     float low=(h/Ch),high=(h+1)/Ch;
                     // if any h value in hsvCell belongs to range [h/C_h,h+1/C_h] hP=true
                     hP = isInRange(hsvCell,cellSize,low,high,0);
-                    if(count==0)
-                    {
-                       //  System.out.println("hp \n"+hP.toString());
-                         int temp3=0;
-                         String temp4="hp from Java \n";
-                         
-                        for(int l=0;l<hP.rows();l++)
-                        {
-                            for(int m=0;m<hP.columns();m++)
-                            {
-                                if((hP.get(l, m)))
-                                {
-                                    temp4+=Integer.toString(temp3)+"\n";
-                                }
-                                temp3++;
-                            }
-                        }
-                        
-                        System.out.println(temp4);
-                    }
+                    /*if(count==x)
+                    {            
+                        String temp4="hp from Java \n";
+                        System.out.print(temp4+ hP.toStringEasyCompare());
+                    }*/
                     for(int s=0;s<C_s;s++)
                     {
                         low=s/Cs;
                         high=(s+1)/Cs;
                         sP = isInRange(hsvCell, cellSize, low, high, 1);
-                        //if(count==0)
-                         //   System.out.println("sp \n"+sP.toString());
+                        /*if(count==x)
+                        {            
+                            String temp4="sp from Java \n";
+                            System.out.print(temp4+ sP.toStringEasyCompare());
+                        }*/
 
                         for(int v=0;v<C_v;v++)
                         {
                             low=v/Cv;
                             high=(v+1)/Cv;
                             vP = isInRange(hsvCell, cellSize, low, high, 2);
+                            
+                            //sP = isInRange(hsvCell, cellSize, low, high, 1);
+                           /* if (count == x) 
+                            {
+                                String temp4 = "vp from Java \n";
+                                System.out.print(temp4 + vP.toStringEasyCompare());
+                            }*/
                             
                             //if(count==0)
                               //  System.out.println("vp \n"+vP.toString());
@@ -174,9 +172,30 @@ class ML
                             //System.out.println(i+" "+j+" "+h+" "+s+" "+v+" "+hsvImage[i][j].h); //
                             */
                             
-                            //MyBitMatrix temp = new MyBitMatrix(cellSize,cellSize);
+                            //MyMyBitMatrix temp = new MyMyBitMatrix(cellSize,cellSize);
+                           
+                            
+                            if(count==x)
+                            {
+                                temp4 = "hP from Java \n";
+                                System.out.print(temp4 + hP.toStringEasyCompare());
+                                
+                                temp4 = "sP from Java \n";
+                                System.out.print(temp4 + sP.toStringEasyCompare());
+                                
+                                temp4 = "vP from Java \n";
+                                System.out.print(temp4 + vP.toStringEasyCompare());
+                                
+                            }
+                            
                             sP.and(vP);
                             hP.and(sP);
+                            
+                            if(count==x)
+                            {
+                                temp4 = "Final from Java \n";
+                                System.out.print(temp4 + hP.toStringEasyCompare());
+                            }
                             
                             feature.put(count, isAnyTrue(hP));
                            // System.out.println(count+" "+feature.get(count)+" "+hsvImage[i][j].h);
@@ -189,9 +208,9 @@ class ML
         return feature;
     }
     
-    public static BitMatrix isInRange(hsv hsvCell[][],int cellSize,float low,float high,int type) //type=0,compare hue, 1 saturation
+    public static MyBitMatrix isInRange(hsv hsvCell[][],int cellSize,float low,float high,int type) //type=0,compare hue, 1 saturation
     {
-        BitMatrix ans=new BitMatrix(cellSize,cellSize);
+        MyBitMatrix ans=new MyBitMatrix(cellSize,cellSize);
         
         for(int i=0;i<cellSize;i++)
         {
@@ -212,7 +231,7 @@ class ML
         return ans;
     }
     
-    public static boolean isAnyTrue(BitMatrix temp)
+    public static boolean isAnyTrue(MyBitMatrix temp)
     {
         boolean ans=false;
         for(int i=0;i<temp.rows();i++)

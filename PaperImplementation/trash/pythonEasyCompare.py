@@ -46,20 +46,32 @@ def hsv_to_feature(hsv,N,C_h,C_s,C_v):
       cell= hsv[i*cell_size:i*cell_size+cell_size,j*cell_size:j*cell_size+cell_size,:]
       # check for h
       #print cell
+      x=0
       for h in range(C_h):
         h_cell = np.logical_and(cell[:,:,0]>=h_range[h],cell[:,:,0]<h_range[h+1])
-        if(count==0):
+        '''if(count==x):
         	print "hP from python"
-        	getN(h_cell)
+        	getN(h_cell)'''
         for s in range(C_s): 
           s_cell = np.logical_and(cell[:,:,1]>=s_range[s],cell[:,:,1]<s_range[s+1])
-          #if(count==0):
-        	#getN(s_cell)
+          '''if(count==x):
+          	print "sP from python"
+        	getN(s_cell)'''
           for v in range(C_v):
             v_cell = np.logical_and(cell[:,:,2]>=v_range[v],cell[:,:,2]<v_range[v+1])
-           # if(count==0):
-        		#getN(v_cell)
+            '''if(count==x):
+            	print "vP from python"
+            	getN(v_cell)'''
             gesamt = np.logical_and(np.logical_and(h_cell,s_cell),v_cell)
+            if(count==x):
+            	print "hP from python"
+            	getN(h_cell)
+            	print "sP from python"
+            	getN(s_cell)
+            	print "vP from python"
+            	getN(v_cell)
+            	print "final matrix from python"
+            	getN(gesamt)
             res[i,j,h,s,v] = gesamt.any()
             #print count,res[i,j,h,s,v],hsv[i,j,0]
             #print i,j,h,s,v,hsv[i,j,0]

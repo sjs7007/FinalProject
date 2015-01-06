@@ -32,6 +32,7 @@ public class testGauava {
                             q.put(j,i, true);
                     }
                 }
+                q.put(1,2,true);
                MyBitMatrix z = new MyBitMatrix(3,3);
                p.and(q);
                z.and(q);
