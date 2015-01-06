@@ -4,6 +4,7 @@ package extendingLibrary;
 import cern.colt.bitvector.BitMatrix;
 import cern.colt.bitvector.BitVector;
 import cern.colt.function.IntIntProcedure;
+import cern.jet.random.engine.RandomSeedTable;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -185,6 +186,23 @@ public class MyBitMatrix extends BitMatrix {
             }
         }
         
+        return out;
+    }
+    
+    public static MyBitMatrix toMyBitMatrix(BitMatrix in)
+    {
+        int rows=in.rows(),columns=in.columns();
+        MyBitMatrix out = new MyBitMatrix(rows, columns);
+        for(int i=0;i<rows;i++)
+        {
+            for(int j=0;j<columns;j++)
+            {
+                if(in.get(i,j))
+                {
+                    out.put(i, j, true);
+                }
+            }
+        }
         return out;
     }
 }

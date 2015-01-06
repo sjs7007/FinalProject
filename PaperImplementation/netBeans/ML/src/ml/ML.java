@@ -125,7 +125,7 @@ class ML
                 }              
                // System.out.println();
                 //now hsvCell = small seperate portion of whole hsv image
-                int x=0;
+                int x=1;
                 String temp4="";
                 
                 for(int h=0;h<C_h;h++)
@@ -174,6 +174,24 @@ class ML
                             
                             //MyMyBitMatrix temp = new MyMyBitMatrix(cellSize,cellSize);
                            
+              
+                            
+                            /*sP.and(vP);
+                            hP.and(sP); // < this was causing problems as s and h values would be overwritten
+                            // and for very few values which are different reason is diff. math. accuracy in java nad python probably 
+                            
+                       
+                            if(count==x)
+                            {
+                                temp4 = "Final from Java \n";
+                                System.out.print(temp4 + hP.toStringEasyCompare());
+                            }*/
+                            
+                                          
+                            BitMatrix temp = vP.copy();
+                            temp.and(sP);
+                            temp.and(hP);
+                            MyBitMatrix FinalMat = MyBitMatrix.toMyBitMatrix(temp);
                             
                             if(count==x)
                             {
@@ -186,16 +204,11 @@ class ML
                                 temp4 = "vP from Java \n";
                                 System.out.print(temp4 + vP.toStringEasyCompare());
                                 
-                            }
-                            
-                            sP.and(vP);
-                            hP.and(sP);
-                            
-                            if(count==x)
-                            {
+                                
                                 temp4 = "Final from Java \n";
-                                System.out.print(temp4 + hP.toStringEasyCompare());
+                                System.out.print(temp4 + FinalMat.toStringEasyCompare());
                             }
+                            
                             
                             feature.put(count, isAnyTrue(hP));
                            // System.out.println(count+" "+feature.get(count)+" "+hsvImage[i][j].h);

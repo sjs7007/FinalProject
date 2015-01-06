@@ -31,3 +31,5 @@ Step 2 :
 + flatten into vector
 	+ [stack oveflow](http://stackoverflow.com/questions/2569279/how-to-flatten-2d-array-to-1d-array)
 	+ [how to use .jar files](http://stackoverflow.com/questions/460364/how-to-use-classes-from-jar-files)
+
+	

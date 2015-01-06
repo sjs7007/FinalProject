@@ -46,7 +46,7 @@ def hsv_to_feature(hsv,N,C_h,C_s,C_v):
       cell= hsv[i*cell_size:i*cell_size+cell_size,j*cell_size:j*cell_size+cell_size,:]
       # check for h
       #print cell
-      x=0
+      x=1
       for h in range(C_h):
         h_cell = np.logical_and(cell[:,:,0]>=h_range[h],cell[:,:,0]<h_range[h+1])
         '''if(count==x):

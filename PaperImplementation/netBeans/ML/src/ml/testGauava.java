@@ -36,8 +36,11 @@ public class testGauava {
                MyBitMatrix z = new MyBitMatrix(3,3);
                p.and(q);
                z.and(q);
+               
+               q=p.copy();
+               
                test.toString();
-               System.out.println(p.toString());
+               System.out.println(q.toString());
                 
         }
         
