@@ -158,7 +158,7 @@ class ML
                                 temp4 = "Final from Java \n";
                                 System.out.print(temp4 + FinalMat.toStringEasyCompare());
                             }
-                            feature.put(count, isAnyTrue(hP));
+                            feature.put(count, isAnyTrue(FinalMat));
                             count++;
                         }
                     }
