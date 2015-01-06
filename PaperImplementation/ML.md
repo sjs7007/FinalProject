@@ -32,4 +32,18 @@ Step 2 :
 	+ [stack oveflow](http://stackoverflow.com/questions/2569279/how-to-flatten-2d-array-to-1d-array)
 	+ [how to use .jar files](http://stackoverflow.com/questions/460364/how-to-use-classes-from-jar-files)
 
-	
+-----
+
+Comparision of output from python and java 
+
+[python code](pythonEasyCompare.py)
+[java code](ML.java)
+
+[diff for x = 256](https://www.diffchecker.com/ec85wi5z)
+
+[python output](color_from_pythonx256.txt)
+[java output](color_from_Javax256.txt)
+
+#Color Features all done and working. Tested on dog 55 image.
+
+------
