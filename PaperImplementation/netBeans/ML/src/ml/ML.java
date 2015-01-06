@@ -213,7 +213,7 @@ class ML
         /*hsv test = new hsv(10,10,20);
         test.display();*/
        int N=5,C_h=10,C_s=6,C_v=6;
-       BitVector colorFeatures = colorFeatureBuilder(img2RGB2HSV("/home/shinchan/FinalProject/PaperImplementation/netBeans/ML/src/ml/dog.55.jpg"), N, C_h, C_s, C_v);
+       BitVector colorFeatures = colorFeatureBuilder(img2RGB2HSV("/home/shinchan/FinalProject/PaperImplementation/netBeans/ML/src/ml/cat.55.jpg"), N, C_h, C_s, C_v);
         
         /*for(int i=0;i<colorFeatures.length;i++)
         {

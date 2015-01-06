@@ -36,14 +36,18 @@ Step 2 :
 
 Comparision of output from python and java 
 
-[python code](pythonEasyCompare.py)
-[java code](ML.java)
-
-[diff for x = 256](https://www.diffchecker.com/ec85wi5z)
+[python code](pythonEasyCompare.py)    
+[java code](ML.java)    
+ 
+[diff for x = 256 on diff checker](https://www.diffchecker.com/ec85wi5z)
 
 [python output](color_from_pythonx256.txt)
 [java output](color_from_Javax256.txt)
 
-#Color Features all done and working. Tested on dog 55 image.
+###Color Features all done and working. Tested on dog 55 image.
+
+Tested again on cat55 : 
+
+[diff for x = 256 on diff checker on cat55](https://www.diffchecker.com/psca0yxo)
 
 ------
