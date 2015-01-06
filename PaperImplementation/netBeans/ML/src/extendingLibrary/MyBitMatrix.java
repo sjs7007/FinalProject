@@ -167,4 +167,24 @@ public class MyBitMatrix extends BitMatrix {
         }
        return out;
     }
+    
+    public String toStringEasyCompare()
+    {
+        String out="";
+        int count=0;
+        
+        for (int l = 0; l < rows; l++) 
+        {
+            for (int m = 0; m < columns; m++)
+            {
+                if ((get(l, m))) 
+                {
+                    out += Integer.toString(count) + "\n";
+                }
+                count++;
+            }
+        }
+        
+        return out;
+    }
 }

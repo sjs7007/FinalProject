@@ -133,16 +133,31 @@ class ML
                     hP = isInRange(hsvCell,cellSize,low,high,0);
                     if(count==0)
                     {
-                         System.out.println("hp \n"+hP.toString());
+                       //  System.out.println("hp \n"+hP.toString());
+                         int temp3=0;
+                         String temp4="hp from Java \n";
+                         
+                        for(int l=0;l<hP.rows();l++)
+                        {
+                            for(int m=0;m<hP.columns();m++)
+                            {
+                                if((hP.get(l, m)))
+                                {
+                                    temp4+=Integer.toString(temp3)+"\n";
+                                }
+                                temp3++;
+                            }
+                        }
                         
+                        System.out.println(temp4);
                     }
                     for(int s=0;s<C_s;s++)
                     {
                         low=s/Cs;
                         high=(s+1)/Cs;
                         sP = isInRange(hsvCell, cellSize, low, high, 1);
-                        if(count==0)
-                            System.out.println("sp \n"+sP.toString());
+                        //if(count==0)
+                         //   System.out.println("sp \n"+sP.toString());
 
                         for(int v=0;v<C_v;v++)
                         {
@@ -150,8 +165,8 @@ class ML
                             high=(v+1)/Cv;
                             vP = isInRange(hsvCell, cellSize, low, high, 2);
                             
-                            if(count==0)
-                                System.out.println("vp \n"+vP.toString());
+                            //if(count==0)
+                              //  System.out.println("vp \n"+vP.toString());
 
                            /* temp[i][j][h][s][v]=(hP)&(sP)&(vP);
                             feature[count]=temp[i][j][h][s][v];

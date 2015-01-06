@@ -45,13 +45,20 @@ def hsv_to_feature(hsv,N,C_h,C_s,C_v):
     for j in range(N):
       cell= hsv[i*cell_size:i*cell_size+cell_size,j*cell_size:j*cell_size+cell_size,:]
       # check for h
-      print cell
+      #print cell
       for h in range(C_h):
         h_cell = np.logical_and(cell[:,:,0]>=h_range[h],cell[:,:,0]<h_range[h+1])
+        if(count==0):
+        	print "hP from python"
+        	getN(h_cell)
         for s in range(C_s): 
           s_cell = np.logical_and(cell[:,:,1]>=s_range[s],cell[:,:,1]<s_range[s+1])
+          #if(count==0):
+        	#getN(s_cell)
           for v in range(C_v):
             v_cell = np.logical_and(cell[:,:,2]>=v_range[v],cell[:,:,2]<v_range[v+1])
+           # if(count==0):
+        		#getN(v_cell)
             gesamt = np.logical_and(np.logical_and(h_cell,s_cell),v_cell)
             res[i,j,h,s,v] = gesamt.any()
             #print count,res[i,j,h,s,v],hsv[i,j,0]
@@ -65,6 +72,19 @@ def build_color_featurevector(filename,N,C_h,C_s,C_v):
   rgb_bild = file_to_rgb(filename)
   assert (rgb_bild.shape[2]==3)
   return hsv_to_feature(skimage.color.rgb2hsv(rgb_bild),N,C_h,C_s,C_v)
+
+def getN(h_cell):
+	count=0
+	temp=""
+	#print "tets"
+	for i in range(h_cell.shape[0]):
+		for j in range(h_cell.shape[1]):
+			if(h_cell[i][j]):
+				print count
+				#temp=temp.join(str(count))
+				#print temp
+			count=count+1
+	return temp
 	    
 
 x=build_color_featurevector("dog.55.jpg",5,10,6,6)
