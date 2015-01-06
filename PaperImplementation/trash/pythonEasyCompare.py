@@ -100,4 +100,9 @@ def getN(h_cell):
 	    
 
 x=build_color_featurevector("dog.55.jpg",5,10,6,6)
-#print x
+print "color features from python"
+count=0
+for i in range(x.shape[0]):
+	if(x[i]==1):
+		print count
+	count=count+1
