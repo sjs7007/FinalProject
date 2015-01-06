@@ -116,6 +116,7 @@ class ML
                 for(int h=0;h<C_h;h++)
                 {
                     BitMatrix hP=new BitMatrix(cellSize,cellSize);
+                    MyBitMatrix hP2 = new MyBitMatrix(cellSize, cellSize);
                     BitMatrix sP=new BitMatrix(cellSize,cellSize);
                     BitMatrix vP=new BitMatrix(cellSize,cellSize);
                     
@@ -123,6 +124,18 @@ class ML
                     // if any h value in hsvCell belongs to range [h/C_h,h+1/C_h] hP=true
                     
                     hP = isInRange(hsvCell,cellSize,low,high,0);
+                    if(count==0)
+                    {
+                        System.out.println(hP.toString());
+                        for(int l=0;l<hP.rows();l++)
+                        {
+                            for(int m=0;m<hP.columns();m++)
+                            {
+                                hP2.put(l, m, hP.get(i, j));
+                            }
+                        }
+                        System.out.println(hP2.toString());
+                    }
                     
                     for(int s=0;s<C_s;s++)
                     {
@@ -141,6 +154,10 @@ class ML
                             System.out.println(count+" "+feature[count]+" "+hsvImage[i][j].h);
                             //System.out.println(i+" "+j+" "+h+" "+s+" "+v+" "+hsvImage[i][j].h); //
                             */
+                            sP.and(vP);
+                            hP.and(sP);
+                            feature.put(count, isAnyTrue(hP));
+                           
                             count++;
                         }
                     }
@@ -163,7 +180,24 @@ class ML
                 if(temp>=low && temp<high)
                 {
                     ans.put(i, j, true);
-                 
+                }
+            }
+        }
+        return ans;
+    }
+    
+    public static boolean isAnyTrue(BitMatrix temp)
+    {
+        boolean ans=false;
+        
+        for(int i=0;i<temp.rows();i++)
+        {
+            for(int j=0;j<temp.columns();j++)
+            {
+                if(temp.get(i, j))
+                {
+                    ans=true;
+                    break;
                 }
             }
         }
