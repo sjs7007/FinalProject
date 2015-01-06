@@ -22,7 +22,6 @@ import java.awt.*; // #1,#2
 import java.awt.image.BufferedImage; //#1
 import java.io.*; // #1
 import javax.imageio.ImageIO; //#1
-//import javax.swing.JFrame;  //#1
 import java.awt.image.WritableRaster; //#3
 
 
@@ -56,7 +55,7 @@ class ML
     public static hsv[][] img2RGB2HSV(String ip) throws IOException
     {
         BufferedImage image;
-        int width, height,count=0; 
+        int width, height; 
         
         File input = new File(ip);
         image = ImageIO.read(input);
@@ -69,11 +68,8 @@ class ML
         {
             for(int j=0;j<width;j++)
             {
-              //  count++;
                 Color c = new Color(image.getRGB(j, i));
-                //System.out.println("S.No: "+count+" Red : " + c.getRed() +" Green: " + c.getGreen() + " Blue: " + c.getBlue());
                 hsvImage[i][j]=new hsv(c.getRed(),c.getGreen(),c.getBlue());
-                //System.out.println("S.No: "+count+" Hue : " + hsvImage[j][i].h +" Saturation : " + hsvImage[j][i].s + " Value : " + hsvImage[j][i].v);
             }
         }
         
@@ -116,16 +112,12 @@ class ML
                 for(int p=i*cellSize;p<(i+1)*cellSize;p++)
                 {
                     for(int q=j*cellSize;q<(j+1)*cellSize;q++)
-                    {
-                        //System.out.println(i+" "+j+" "+p+" "+q);
-                        hsvCell[p-(i*cellSize)][q-(j*cellSize)]=hsvImage[p][q];
-                       // hsvImage[p][q].display();
-                    }
-                  //  System.out.println();
-                }              
-               // System.out.println();
+                    {                 
+                        hsvCell[p-(i*cellSize)][q-(j*cellSize)]=hsvImage[p][q];                  
+                    }            
+                }                
                 //now hsvCell = small seperate portion of whole hsv image
-                int x=1;
+                int x=256;
                 String temp4="";
                 
                 for(int h=0;h<C_h;h++)
@@ -134,60 +126,19 @@ class ML
                     float low=(h/Ch),high=(h+1)/Ch;
                     // if any h value in hsvCell belongs to range [h/C_h,h+1/C_h] hP=true
                     hP = isInRange(hsvCell,cellSize,low,high,0);
-                    /*if(count==x)
-                    {            
-                        String temp4="hp from Java \n";
-                        System.out.print(temp4+ hP.toStringEasyCompare());
-                    }*/
+                  
                     for(int s=0;s<C_s;s++)
                     {
                         low=s/Cs;
                         high=(s+1)/Cs;
                         sP = isInRange(hsvCell, cellSize, low, high, 1);
-                        /*if(count==x)
-                        {            
-                            String temp4="sp from Java \n";
-                            System.out.print(temp4+ sP.toStringEasyCompare());
-                        }*/
-
+                       
                         for(int v=0;v<C_v;v++)
                         {
                             low=v/Cv;
                             high=(v+1)/Cv;
                             vP = isInRange(hsvCell, cellSize, low, high, 2);
-                            
-                            //sP = isInRange(hsvCell, cellSize, low, high, 1);
-                           /* if (count == x) 
-                            {
-                                String temp4 = "vp from Java \n";
-                                System.out.print(temp4 + vP.toStringEasyCompare());
-                            }*/
-                            
-                            //if(count==0)
-                              //  System.out.println("vp \n"+vP.toString());
-
-                           /* temp[i][j][h][s][v]=(hP)&(sP)&(vP);
-                            feature[count]=temp[i][j][h][s][v];
-                            System.out.println(count+" "+feature[count]+" "+hsvImage[i][j].h);
-                            //System.out.println(i+" "+j+" "+h+" "+s+" "+v+" "+hsvImage[i][j].h); //
-                            */
-                            
-                            //MyMyBitMatrix temp = new MyMyBitMatrix(cellSize,cellSize);
-                           
-              
-                            
-                            /*sP.and(vP);
-                            hP.and(sP); // < this was causing problems as s and h values would be overwritten
-                            // and for very few values which are different reason is diff. math. accuracy in java nad python probably 
-                            
-                       
-                            if(count==x)
-                            {
-                                temp4 = "Final from Java \n";
-                                System.out.print(temp4 + hP.toStringEasyCompare());
-                            }*/
-                            
-                                          
+                      
                             BitMatrix temp = vP.copy();
                             temp.and(sP);
                             temp.and(hP);
@@ -204,14 +155,10 @@ class ML
                                 temp4 = "vP from Java \n";
                                 System.out.print(temp4 + vP.toStringEasyCompare());
                                 
-                                
                                 temp4 = "Final from Java \n";
                                 System.out.print(temp4 + FinalMat.toStringEasyCompare());
                             }
-                            
-                            
                             feature.put(count, isAnyTrue(hP));
-                           // System.out.println(count+" "+feature.get(count)+" "+hsvImage[i][j].h);
                             count++;
                         }
                     }
@@ -229,8 +176,7 @@ class ML
         {
             for(int j=0;j<cellSize;j++)
             {
-                float temp = hsvCell[i][j].getHSV()[type];
-               // System.out.println(temp+" "+low+" "+high);
+                float temp = hsvCell[i][j].getHSV()[type];         
                 if(temp>=low && temp<high)
                 {
                     ans.put(i, j, true);
