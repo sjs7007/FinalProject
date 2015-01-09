@@ -119,7 +119,7 @@ class ML
             }
         }
         
-        HSV2File(hsvImage,width,height);
+       // HSV2File(hsvImage,width,height); debugging code removed
         
         return hsvImage;
     }
@@ -291,6 +291,7 @@ class ML
     	
     	for(int i=0;i<nImages;i++)
     	{
+    		System.out.print("On file number :"+(i+1)+", "+allImages[i].getName() + "\n");
     		//System.out.println(allImages[i].getName());
     		if(allImages[i].getName().contains("cat")) //1=dog, -1=cat
     		{
@@ -312,7 +313,8 @@ class ML
    public static void toLIBSVMFormat(fileData[] allImageData) throws IOException
    {
 		StringBuffer ip = new StringBuffer();
-		FileWriter op = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/colorLIBSVM.train");
+		//FileWriter op = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/colorLIBSVM.train");
+		FileWriter op = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/colorLIBSVMALL.train");
 		
 		for(int i=0;i<allImageData.length;i++)
 		{
@@ -337,9 +339,10 @@ class ML
         /*hsv test = new hsv(10,10,20);
         test.display();*/
        int N=5,C_h=10,C_s=6,C_v=6;
-       BitVector colorFeatures = colorFeatureBuilder(img2RGB2HSV("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/dog.55.jpg"), N, C_h, C_s, C_v);
+       //BitVector colorFeatures = colorFeatureBuilder(img2RGB2HSV("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/dog.55.jpg"), N, C_h, C_s, C_v);
+       //BitVector colorFeatures = colorFeatureBuilder(img2RGB2HSV("/home/shinchan/Downloads/zipFiles/train/"), N, C_h, C_s, C_v);
           
-       String temp = "Single input Color features from Java.\n";
+       /*String temp = "Single input Color features from Java.\n";
        int count=0;
        for(int i=0;i<colorFeatures.size();i++)
        {
@@ -349,18 +352,19 @@ class ML
            }
            count++;
        }
-       System.out.print(temp);
+       System.out.print(temp);*/
        
        
        
        String ip = new String("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/trainingImageData/");
+       //String ip = new String("/home/shinchan/Downloads/zipFiles/train");
    
        fileData allImageData[]=batchColorFeatureBuilder(ip, N, C_h, C_s, C_v);
        
-       for(int i=0;i<allImageData.length;i++)
+       /*for(int i=0;i<allImageData.length;i++)
        {
     	   System.out.println(allImageData[i].colorFeatureVector.toString()+"\n");
-       }
+       }*/
        
        toLIBSVMFormat(allImageData);
     }
