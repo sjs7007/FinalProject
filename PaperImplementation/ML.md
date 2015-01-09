@@ -24,13 +24,10 @@ Step 2 :
 
 + Cell size = 250/N.
 + Split each h,s,v into c_h, c_s and c_v bands of equal width.
-+ temp data type of cell size * cell size * c_h * c_s * c-s as a boolean 5D array indicating whether each cell has h,s,v belonging to  
-[1...N][1...N][1...C_h][1...C_s][1.....C_v]
++ Create feature vector of size(N*N*Ch*Cs*Cv) : data type bitvector.
 + extract cells from matrix : [code](trash/testExtractCells.java)
-+ get feature array
-+ flatten into vector
-	+ [stack oveflow](http://stackoverflow.com/questions/2569279/how-to-flatten-2d-array-to-1d-array)
-	+ [how to use .jar files](http://stackoverflow.com/questions/460364/how-to-use-classes-from-jar-files)
++ For each cell, say hsvCell,  store in FinalMat of data type MyBitMatrix, the boolean result for that particular cell.
++ Final feature vector : use data type BitVector. 
 
 -----
 
@@ -51,3 +48,22 @@ Tested again on cat55 :
 [diff for x = 256 on diff checker on cat55](https://www.diffchecker.com/psca0yxo)
 
 ------
+
+Step 3 : Figure out how to work with SVMs in Java.
+
++ Use LIBSVM from [here](http://www.csie.ntu.edu.tw/~cjlin/cgi-bin/libsvm.cgi?+http://www.csie.ntu.edu.tw/~cjlin/libsvm+zip).
+	+ [LIBSVM's official page](http://www.csie.ntu.edu.tw/~cjlin/libsvm/)
+	+ [Example video of using LIBSVM in Java](https://www.youtube.com/watch?v=gePWtNAQcK8)
+	+ [To run train and predict in Eclipse you'll need to know how to load command line arguments in eclipse.](http://www.cs.colostate.edu/helpdocs/eclipseCommLineArgs.html)
+
+	Steps :
+	+ Run train.java with following 2 command line arguments : input training file, location and file name to store generated model.
+	+ Run predict.java with following 3 command line arguments : input test file, model generated in earlier step, location and file name to store prediction output.
+
++ Now, next step is to make it work with your data.
+	+ 1st you need to convert in format needed by libsvm. 
+	+ [If in CSV..](https://nayefreza.wordpress.com/2013/09/18/converting-csv-file-to-libsvm-compatible-data-file-using-java/)
+	+ Either convert step 2 output to CSV and then use above code or implement code to directly store in needed format of libsvm...
+		CSV files can be easily viewed using excel and are displayed on github and this option will mean less code writing since above script is available....
+
+		
