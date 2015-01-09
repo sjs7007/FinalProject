@@ -304,7 +304,32 @@ class ML
     	return allImageData;
     }
     
-   //public static File[] 
+    /*
+     * take in input data of features and convert in format needed by LIBSVM
+     *  e.g. +1 1:0.7 2:1 3:1 translates to:
+		Assign to class +1, the point (0.7,1,1).
+     */
+   public static void toLIBSVMFormat(fileData[] allImageData) throws IOException
+   {
+		StringBuffer ip = new StringBuffer();
+		FileWriter op = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/output/colorLIBSVM.train");
+		
+		for(int i=0;i<allImageData.length;i++)
+		{
+			ip.append(allImageData[i].type);
+			for(int j=0;j<allImageData[i].colorFeatureVector.size();j++)
+			{
+				if(allImageData[i].colorFeatureVector.get(j))
+				{
+					ip.append(" "+(j+1)+":1");
+				}
+			}
+			ip.append("\n");
+		}
+		
+		op.write(ip.toString());
+		op.flush();
+   }
     
     public static void main(String args[]) throws IOException
     {
@@ -335,17 +360,8 @@ class ML
        for(int i=0;i<allImageData.length;i++)
        {
     	   System.out.println(allImageData[i].colorFeatureVector.toString()+"\n");
-    	 /*  int count2=0;
-    	   temp="";
-    	   for(int x=0;x<allImageData[i].colorFeatureVector.size();x++)
-    	   {
-    		   if(allImageData[i].colorFeatureVector.get(x))
-    		   {
-    			   temp+=Integer.toString(count2)+"\n";
-    		   }
-    		   count2++;
-    	   }
-    	   System.out.print(temp);*/
        }
+       
+       toLIBSVMFormat(allImageData);
     }
 }

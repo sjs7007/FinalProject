@@ -38,7 +38,7 @@ public class testGauava {
                p.and(q);
                z.and(q);
                
-               q=p.copy();
+               //q=p.copy();
                
                test.toString();
                System.out.println(q.toString());

@@ -89,4 +89,14 @@ Step 3 : Figure out how to work with SVMs in Java.
 
 	+ Before this, first modify main program "ML.java" to take multiple files as input and automatically detect using name whether cat or not.
 
-	
+	[Code for example file IO](PaperImplementation/Eclipse/ML/src/generalTestArea/testFileIO.java)
+	Done!
+
+	+ Now produce output in format needed for SVM. 
+
+		+ Take as input allImageData and convert into libsvm format : toLibsvmFormat() method
+			Done!
+
++ Next step : give actual data to train method!
+
+

@@ -3,10 +3,12 @@
 package generalTestArea;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class testFileIO 
 {
-	public static void main(String args[])
+	public static void main(String args[]) throws IOException
 	{
 		// Code below lists name of all files and folders inside Final Project directory
 		
@@ -40,5 +42,25 @@ public class testFileIO
 			}
 		}
 			
+		//Code below is used to write a file similar to libsvm format
+		// example code for CSV to libsvm : https://nayefreza.wordpress.com/2013/09/18/converting-csv-file-to-libsvm-compatible-data-file-using-java/
+		
+		int indexCount=1;
+		StringBuffer ip = new StringBuffer();
+		FileWriter op = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/output/colorLIBSVM.train");
+		
+		for(int i=0;i<5;i++)
+		{
+			ip.append("<classificationLabel>");
+			for(int j=0;j<5;j++)
+			{
+				ip.append(" "+indexCount+":1");
+			}
+			ip.append("\n");
+			indexCount++;
+		}
+		
+		op.write(ip.toString());
+		op.flush();
 	}
 }
