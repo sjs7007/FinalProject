@@ -66,4 +66,27 @@ Step 3 : Figure out how to work with SVMs in Java.
 	+ Either convert step 2 output to CSV and then use above code or implement code to directly store in needed format of libsvm...
 		CSV files can be easily viewed using excel and are displayed on github and this option will mean less code writing since above script is available....
 
-		
+	+ Data format of LIBSVM [here](http://stats.stackexchange.com/questions/61328/libsvm-data-format):
+
+		```
+		The data is stored in a sparse array/matrix form. Essentially, it means only the non-zero data are stored, and any missing data is taken as holding value zero. 
+
+		In short, +1 1:0.7 2:1 3:1 translates to:
+
+		Assign to class +1, the point (0.7,1,1).
+		```
+
+		Also each line should end with '\n'.
+
+		So, for let's say label for cat : -1, dog: +1
+
+		and there are 9000 features in total, so say if only feature 1,9,900 is true it will be stored as 
+
+		1 1:1 9:1 900:1 for image of dog
+	   -1 1:1 9:1 900:1 for image of cat
+
+	   both will also have a '\n' at the end of the line.
+
+	+ Before this, first modify main program "ML.java" to take multiple files as input and automatically detect using name whether cat or not.
+
+	
