@@ -312,7 +312,7 @@ class ML
         /*hsv test = new hsv(10,10,20);
         test.display();*/
        int N=5,C_h=10,C_s=6,C_v=6;
-       BitVector colorFeatures = colorFeatureBuilder(img2RGB2HSV("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/dog.55.jpg"), N, C_h, C_s, C_v);
+       BitVector colorFeatures = colorFeatureBuilder(img2RGB2HSV("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/cat.55.jpg"), N, C_h, C_s, C_v);
           
        String temp = "Single input Color features from Java.\n";
        int count=0;
