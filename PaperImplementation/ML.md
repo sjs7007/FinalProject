@@ -98,5 +98,6 @@ Step 3 : Figure out how to work with SVMs in Java.
 			Done!
 
 + Next step : give actual data to train method!
-
+	+ Seems to work, but images need to be converted to 250*250 resolution first.
+		Use script from [here](https://github.com/Safadurimo/cats-and-dogs/blob/master/resize.sh) for it. Need to install "imagemagick" for mogrify.
 

@@ -356,7 +356,7 @@ class ML
        
        
        
-       String ip = new String("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/trainingImageData/");
+       String ip = new String("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/trainingImageResized/");
        //String ip = new String("/home/shinchan/Downloads/zipFiles/train");
    
        fileData allImageData[]=batchColorFeatureBuilder(ip, N, C_h, C_s, C_v);
