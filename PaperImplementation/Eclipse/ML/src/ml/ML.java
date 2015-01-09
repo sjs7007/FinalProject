@@ -312,7 +312,7 @@ class ML
    public static void toLIBSVMFormat(fileData[] allImageData) throws IOException
    {
 		StringBuffer ip = new StringBuffer();
-		FileWriter op = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/output/colorLIBSVM.train");
+		FileWriter op = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/colorLIBSVM.train");
 		
 		for(int i=0;i<allImageData.length;i++)
 		{
