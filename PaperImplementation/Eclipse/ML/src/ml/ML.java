@@ -293,9 +293,9 @@ class ML
     	{
     		System.out.print("On file number :"+(i+1)+", "+allImages[i].getName() + "\n");
     		//System.out.println(allImages[i].getName());
-    		if(allImages[i].getName().contains("cat")) //1=dog, -1=cat
+    		if(allImages[i].getName().contains("cat")) //1=dog, 0=cat
     		{
-    			allImageData[i]=new fileData(-1,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    			allImageData[i]=new fileData(0,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
     		}
     		else 
     		{
@@ -312,12 +312,12 @@ class ML
      */
    public static void toLIBSVMFormat(fileData[] allImageData) throws IOException
    {
-		StringBuffer ip = new StringBuffer();
 		//FileWriter op = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/colorLIBSVM.train");
 		FileWriter op = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/colorLIBSVMALL.train");
 		
 		for(int i=0;i<allImageData.length;i++)
 		{
+			StringBuffer ip = new StringBuffer();
 			ip.append(allImageData[i].type);
 			for(int j=0;j<allImageData[i].colorFeatureVector.size();j++)
 			{
@@ -327,9 +327,8 @@ class ML
 				}
 			}
 			ip.append("\n");
-		}
-		
-		op.write(ip.toString());
+			op.write(ip.toString());
+		}	
 		op.flush();
    }
     
@@ -356,8 +355,12 @@ class ML
        
        
        
-       String ip = new String("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/trainingImageResized/");
-       //String ip = new String("/home/shinchan/Downloads/zipFiles/train");
+     // String ip = new String("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/trainingImageResized/");
+       
+       String ip = new String("/home/shinchan/Downloads/zipFiles/trainResized");
+       
+       //String ip = new String("/home/shinchan/Downloads/zipFiles/testResized");
+
    
        fileData allImageData[]=batchColorFeatureBuilder(ip, N, C_h, C_s, C_v);
        

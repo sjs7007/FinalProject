@@ -100,4 +100,20 @@ Step 3 : Figure out how to work with SVMs in Java.
 + Next step : give actual data to train method!
 	+ Seems to work, but images need to be converted to 250*250 resolution first.
 		Use script from [here](https://github.com/Safadurimo/cats-and-dogs/blob/master/resize.sh) for it. Need to install "imagemagick" for mogrify.
+		Done
+	+ extract features in batch for training and store in Eclipse/ML/input/colorLIBSVMALL.train
+	+ train and store model in Eclipse/ML/input/colorLIBSVMALL.model
+	+ extract features in batch for testing and store in Eclipse/ML/input/colorLIBSVMALL.test
+	+ Perform testing.
+		+out of memory error on string builder.
+
++ What if test data labels are unknown?
+	+ [official source](http://www.csie.ntu.edu.tw/~cjlin/libsvm/faq.html#f431)
+	+ [source2](https://www.biostars.org/p/961/) 
+
+	```
+	I emailed libSVM's author and I thought it would be good to share with you the answer to my question...
+
+	He told me that when you're doing the "actual" prediction, you just put random numbers as labels. It will still print out the "Accuracy=..." statement, which will, of course, be meaningless; the only thing that matters is svm-predict's output file containing the classification results.
+	```
 

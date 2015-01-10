@@ -62,5 +62,25 @@ public class testFileIO
 		
 		op.write(ip.toString());
 		op.flush();
+		// above method caused out of memory error on string builder for 25k input
+		
+		int indexCount2=1;
+		FileWriter op2 = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/output/colorLIBSVM2.train");
+		
+		for(int i=0;i<5;i++)
+		{
+			StringBuffer ip2 = new StringBuffer();
+			ip2.append("<classificationLabel>");
+			for(int j=0;j<5;j++)
+			{
+				ip2.append(" "+indexCount2+":1");
+			}
+			ip2.append("\n");
+			indexCount2++;
+			op2.write(ip2.toString());
+		}
+		
+		op2.flush();
+		
 	}
 }
