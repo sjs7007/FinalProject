@@ -116,4 +116,20 @@ Step 3 : Figure out how to work with SVMs in Java.
 
 	He told me that when you're doing the "actual" prediction, you just put random numbers as labels. It will still print out the "Accuracy=..." statement, which will, of course, be meaningless; the only thing that matters is svm-predict's output file containing the classification results.
 	```
+	+ features of 25k images are of around size 160MB so not uploading in git. [link to file on dropbox]()
+	[Code used for it](https://github.com/sjs7007/FinalProject/commit/7157d3e96967c0c82fcd2337e8c884d94869bac7)
+	+ split the 160mb file into 60-40 as 60% for training and 40% for testing
+	+ so.. split 25k line data into 25k*.6=15k lines and 25k*0.4=10klines
+		+ [splitting option 1](http://askubuntu.com/questions/411971/command-to-split-a-text-file-according-to-number-of-lines) : but this method does not allow 60-40
+			+ just use this and do 50-50 for time being..
+				+ Done!
+				+ Data used :
+					training : half.train
+					testing : half.test
+				+ Mode and result : 
+					half.model
+					half.result
+				+ Accuracy : 73.63199999999999% (9204/12500)
+				+ ![5050Result](sample/5050Result.png)
 
+	+ removed all data files from git repo before uploading.

@@ -289,6 +289,8 @@ class ML
     	fileData allImageData[]=new fileData[nImages];
 
     	
+    	FileWriter op = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/colorLIBSVMALLIntermed.train");
+    	
     	for(int i=0;i<nImages;i++)
     	{
     		System.out.print("On file number :"+(i+1)+", "+allImages[i].getName() + "\n");
@@ -301,7 +303,23 @@ class ML
     		{
     			allImageData[i]=new fileData(1,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
     		}
+    		
+    		//store intermed. results start here
+    		StringBuffer ip2 = new StringBuffer();
+			ip2.append(allImageData[i].type);
+			for(int j=0;j<allImageData[i].colorFeatureVector.size();j++)
+			{
+				if(allImageData[i].colorFeatureVector.get(j))
+				{
+					ip2.append(" "+(j+1)+":1");
+				}
+			}
+			ip2.append("\n");
+			op.write(ip2.toString());
+			//end intermed. results
     	}
+    	
+    	op.flush();
     	return allImageData;
     }
     
