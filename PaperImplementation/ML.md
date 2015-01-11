@@ -144,6 +144,7 @@ Step 4 : run on test data
 	+ [to CSV format](http://www.mkyong.com/java/how-to-export-data-to-csv-file-java/)
 + ![Result on kaggle : accuracy of 0.74297 for TEST2](sample/kaggleTest2Result.png)
 
++ [How to take care of large file commited git issues](http://stackoverflow.com/questions/2100907/how-to-remove-delete-a-large-file-from-commit-history-in-git-repository)
 Step 5 : Create GUI for above code.
 
 + Use [Window Builder](https://eclipse.org/windowbuilder/) in Eclipse.

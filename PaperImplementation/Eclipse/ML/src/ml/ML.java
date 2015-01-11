@@ -351,6 +351,8 @@ class ML
      *  e.g. +1 1:0.7 2:1 3:1 translates to:
 		Assign to class +1, the point (0.7,1,1).
      */
+   
+   /* 
    public static void toLIBSVMFormat(fileData[] allImageData) throws IOException
    {
 		//FileWriter op = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/colorLIBSVM.train");
@@ -372,6 +374,9 @@ class ML
 		}	
 		op.flush();
    }
+   
+   replaced by continuous write
+   */
     
     public static void main(String args[]) throws IOException
     {
@@ -410,6 +415,8 @@ class ML
     	   System.out.println(allImageData[i].colorFeatureVector.toString()+"\n");
        }*/
        
-       toLIBSVMFormat(allImageData);
+      /*  replaced by continuos write 
+       * toLIBSVMFormat(allImageData);
+       */
     }
 }
