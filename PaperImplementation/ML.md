@@ -133,3 +133,18 @@ Step 3 : Figure out how to work with SVMs in Java.
 				+ ![5050Result](sample/5050Result.png)
 
 	+ removed all data files from git repo before uploading.
+
+
+----
+
+Step 4 : run on test data
++ Store text file of all image ids.
+	+ [File name without extension.](http://stackoverflow.com/questions/924394/how-to-get-file-name-without-the-extension)
+	+ [Read file line by line](http://stackoverflow.com/questions/5868369/how-to-read-a-large-text-file-line-by-line-using-java)
+	+ [to CSV format](http://www.mkyong.com/java/how-to-export-data-to-csv-file-java/)
++ ![Result on kaggle : accuracy of 0.74297 for TEST2](sample/kaggleTest2Result.png)
+
+Step 5 : Create GUI for above code.
+
++ Use [Window Builder](https://eclipse.org/windowbuilder/) in Eclipse.
++ [How to install?](https://eclipse.org/windowbuilder/download.php)

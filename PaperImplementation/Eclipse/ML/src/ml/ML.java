@@ -15,17 +15,26 @@ package ml;
 // 3. write hsv image back as rgb image to file : http://www.lac.inpe.br/JIPCookbook/1300-create-rgb.jsp
 // 4. Splite hsv image into smaller cells : trash/testExtractCells
 
-import cern.colt.bitvector.BitMatrix;
-import cern.colt.bitvector.BitVector;
-import java.awt.*; // #1,#2
-import java.awt.image.BufferedImage; //#1
-import java.io.*; // #1
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
-import javax.imageio.ImageIO; //#1
+import javax.imageio.ImageIO;
 
 import modifiedLibraries.MyBitMatrix;
 
-import java.awt.image.WritableRaster; //#3
+import org.apache.commons.io.FilenameUtils;
+
+import cern.colt.bitvector.BitMatrix;
+import cern.colt.bitvector.BitVector;
+// #1,#2
+//#1
+// #1
+//#1
+//#3
 
 
 class  hsv //ADT to store HSV values.
@@ -289,19 +298,31 @@ class ML
     	fileData allImageData[]=new fileData[nImages];
 
     	
-    	FileWriter op = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/colorLIBSVMALLIntermed.train");
+    	FileWriter op = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/continuousTest2.train");
+    	FileWriter op2 = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/output/filesInputTest2.txt");
     	
     	for(int i=0;i<nImages;i++)
     	{
     		System.out.print("On file number :"+(i+1)+", "+allImages[i].getName() + "\n");
+    		
+    		String fileNameWithOutExt = FilenameUtils.removeExtension(allImages[i].getName());
+
+    		
+    		op2.write(fileNameWithOutExt+"\n");
+    		op2.flush();
+    		
     		//System.out.println(allImages[i].getName());
-    		if(allImages[i].getName().contains("cat")) //1=dog, 0=cat
+    		if(allImages[i].getName().contains("cat")) //1=dog, 0=cat, -1=unknown
     		{
     			allImageData[i]=new fileData(0,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
     		}
-    		else 
+    		else if(allImages[i].getName().contains("dog"))
     		{
     			allImageData[i]=new fileData(1,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    		}
+    		else
+    		{
+    			allImageData[i]=new fileData(-1,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
     		}
     		
     		//store intermed. results start here
@@ -316,10 +337,12 @@ class ML
 			}
 			ip2.append("\n");
 			op.write(ip2.toString());
+			op.flush();
 			//end intermed. results
     	}
     	
-    	op.flush();
+    	op.close();
+    	op2.close();
     	return allImageData;
     }
     
@@ -331,7 +354,7 @@ class ML
    public static void toLIBSVMFormat(fileData[] allImageData) throws IOException
    {
 		//FileWriter op = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/colorLIBSVM.train");
-		FileWriter op = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/colorLIBSVMALL.train");
+		FileWriter op = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/test2.train");
 		
 		for(int i=0;i<allImageData.length;i++)
 		{
@@ -367,7 +390,7 @@ class ML
            {
                temp+=Integer.toString(count)+"\n";
            }
-           count++;
+           count++;allImageData[i]=new fileData(1,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
        }
        System.out.print(temp);*/
        
@@ -375,7 +398,7 @@ class ML
        
      // String ip = new String("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/trainingImageResized/");
        
-       String ip = new String("/home/shinchan/Downloads/zipFiles/trainResized");
+       String ip = new String("/home/shinchan/Downloads/zipFiles/testResized");
        
        //String ip = new String("/home/shinchan/Downloads/zipFiles/testResized");
 
