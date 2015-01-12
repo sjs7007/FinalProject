@@ -1,0 +1,6 @@
+
+SVM Train input : a1a.train
+SVM Model generated : results/SVMDefault.model
+Start time : Mon Jan 12 23:39:15 IST 2015
+End time : Mon Jan 12 23:39:16 IST 2015
+Time take for training : 0.015633333 minutes

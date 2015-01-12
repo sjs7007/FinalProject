@@ -29,12 +29,12 @@ import javax.swing.UIManager;
  *   images/Open16.gif
  *   images/Save16.gif
  */
-public class colorFeatureExtractor extends JPanel implements ActionListener {
+public class colorFeatureExtractPredict extends JPanel implements ActionListener {
 	static private final String newline = "\n";
 	JButton openTrainingFolderButton, openTestFolderButton, extractTrainingFeatures;
 	JTextArea log;
 	JFileChooser fc;
-	File trainData = new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/trainingImageResized"),testData =null,inputFileList=null,extractedFeatures=null,trainFeatures=null;
+	File trainData = new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/trainingImageResized"),testData =null,inputFileList=null,extractedFeatures=null,trainFeatures=null, testFeatures=null, modelFile=null;
 	String[] comboValues = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };	
 	JComboBox comboBox = new JComboBox(comboValues);
 	JComboBox comboBox_1 = new JComboBox(comboValues);
@@ -42,7 +42,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 	JComboBox comboBox_3 = new JComboBox(comboValues);
 	private JTextField textField;
 
-	public colorFeatureExtractor() {
+	public colorFeatureExtractPredict() {
 
 		
 		
@@ -154,7 +154,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 				btnSelectTrainingData.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) 
 					{
-						int returnVal = fc.showOpenDialog(colorFeatureExtractor.this);
+						int returnVal = fc.showOpenDialog(colorFeatureExtractPredict.this);
 
 						if (returnVal == JFileChooser.APPROVE_OPTION) {
 							trainFeatures = fc.getSelectedFile();
@@ -229,18 +229,103 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 				btnSelectTestingData.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
+						int returnVal = fc.showOpenDialog(colorFeatureExtractPredict.this);
+
+						if (returnVal == JFileChooser.APPROVE_OPTION) {
+							testFeatures = fc.getSelectedFile();
+							// This is where a real application would open the file.
+							log.append("Features selected for testing : " + testFeatures.toString() + "." + newline);				
+						} else {
+							log.append("Open command cancelled by user." + newline);
+						}
+						log.setCaretPosition(log.getDocument().getLength());						
 					}
 				});
-				btnSelectTestingData.setBounds(342, 407, 238, 51);
+				btnSelectTestingData.setBounds(308, 407, 238, 51);
 				add(btnSelectTestingData);
 				
 				JButton btnPredict = new JButton("Predict");
 				btnPredict.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						
+						if(testFeatures==null)
+						{
+							log.append("Please select test file.\n");
+							return;
+						}
+						if(modelFile==null)
+						{
+							modelFile = new File("results/SVM"+textField.getText()+".model");
+							log.append("Default model file, i.e. SVM"+textField.getText()+".model slected...\n");					
+						}
+						
+						
+						
+						StringBuffer logData = new StringBuffer();
+						logData.append("\nTest file used  : "+testFeatures.getName()+"\n");
+						logData.append("SVM Model used : "+modelFile.toString()+"\n");
+						
+						String resultsName = "results/SVM"+textField.getText()+".result";				
+						
+						
+						Date start =new Date();
+						
+						logData.append("Start time : "+start.toString()+"\n");	
+						
+						
+						try {
+							String argv[]={testFeatures.toString(),modelFile.toString(),resultsName};
+							svm_predict.main(argv);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+						Date end = new Date();
+						logData.append("End time : "+end.toString()+"\n");
+						
+						
+						long executionTimeMS = end.getTime()-start.getTime(); //in milliseconds
+						String executionTime = Float.toString((float)executionTimeMS/(60*1000))+" minutes";
+						
+						logData.append("Time taken for prediction : "+executionTime+"\n");
+								
+						log.append(logData.toString());
+						String testNumber = textField.getText();
+						
+						
+						try {
+							FileWriter F = new FileWriter(new File("results/SVMPredict"+testNumber+".log"));
+							F.write(logData.toString());
+							F.flush();
+							F.close();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
 					}
 				});
-				btnPredict.setBounds(342, 476, 238, 51);
+				btnPredict.setBounds(433, 478, 238, 51);
 				add(btnPredict);
+				
+				JButton btnSelectModel = new JButton("Select Model");
+				btnSelectModel.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int returnVal = fc.showOpenDialog(colorFeatureExtractPredict.this);
+
+						if (returnVal == JFileChooser.APPROVE_OPTION) {
+							modelFile = fc.getSelectedFile();
+							// This is where a real application would open the file.
+							log.append("Model selected for prediction : " + modelFile.toString() + "." + newline);				
+						} else {
+							log.append("Open command cancelled by user." + newline);
+						}
+						log.setCaretPosition(log.getDocument().getLength());		
+					}
+				});
+				btnSelectModel.setBounds(574, 407, 238, 51);
+				add(btnSelectModel);
 				
 			   
 
@@ -250,7 +335,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 	{
 		// Handle open button action.
 		if (e.getSource() == openTrainingFolderButton) {
-			int returnVal = fc.showOpenDialog(colorFeatureExtractor.this);
+			int returnVal = fc.showOpenDialog(colorFeatureExtractPredict.this);
 
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				trainData = fc.getSelectedFile();
@@ -269,7 +354,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 		{
 			// Handle open button action.
 			 if (e.getSource() == openTestFolderButton) {
-		            int returnVal = fc.showOpenDialog(colorFeatureExtractor.this);
+		            int returnVal = fc.showOpenDialog(colorFeatureExtractPredict.this);
 
 		            if (returnVal == JFileChooser.APPROVE_OPTION) {
 		                testData = fc.getSelectedFile();
@@ -358,7 +443,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 
 	/** Returns an ImageIcon, or null if the path was invalid. */
 	protected static ImageIcon createImageIcon(String path) {
-		java.net.URL imgURL = colorFeatureExtractor.class.getResource(path);
+		java.net.URL imgURL = colorFeatureExtractPredict.class.getResource(path);
 		if (imgURL != null) {
 			return new ImageIcon(imgURL);
 		} else {
@@ -376,10 +461,10 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 		JFrame frame = new JFrame("ColorFeaturesExtractor");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		frame.setMinimumSize(new Dimension(800,600));
+		frame.setMinimumSize(new Dimension(859,600));
 		
 		// Add content to the window.
-		frame.getContentPane().add(new colorFeatureExtractor());
+		frame.getContentPane().add(new colorFeatureExtractPredict());
 
 		// Display the window.
 		frame.pack();

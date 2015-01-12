@@ -133,9 +133,7 @@ class svm_predict {
 	{
 		int i, predict_probability=0;
         	svm_print_string = svm_print_stdout;
-
-        System.out.println("1...");
-        	
+ 	
 		// parse options
 		for(i=0;i<argv.length;i++)
 		{
@@ -156,9 +154,7 @@ class svm_predict {
 					exit_with_help();
 			}
 		}
-		
-		 System.out.println("2...");
-		
+				
 		if(i>=argv.length-2)
 		{
 			System.out.println("exiting here...");
