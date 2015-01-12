@@ -82,5 +82,8 @@ public class testFileIO
 		
 		op2.flush();
 		
+		String workingdirectory = System.getProperty("user.dir");
+		System.out.println(workingdirectory);
+		
 	}
 }

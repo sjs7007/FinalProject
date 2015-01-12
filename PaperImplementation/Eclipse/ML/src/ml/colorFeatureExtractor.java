@@ -1,18 +1,21 @@
 package ml;
 
-import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -24,19 +27,24 @@ import javax.swing.UIManager;
  */
 public class colorFeatureExtractor extends JPanel implements ActionListener {
 	static private final String newline = "\n";
-	JButton openTrainingFolderButton, saveInputListButton, openTestFolderButton, saveButton, extractTrainingFeatures;
+	JButton openTrainingFolderButton, openTestFolderButton, extractTrainingFeatures;
 	JTextArea log;
 	JFileChooser fc;
-	File trainData = null,testData =null,inputFileList=null,extractedFeatures=null;
+	File trainData = null,testData =null,inputFileList=new File("colorFeatureExtractor.list"),extractedFeatures=new File("colorFeatureExtractor.train");
+	String[] comboValues = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };	
+	JComboBox comboBox = new JComboBox(comboValues);
+	JComboBox comboBox_1 = new JComboBox(comboValues);
+	JComboBox comboBox_2 = new JComboBox(comboValues);
+	JComboBox comboBox_3 = new JComboBox(comboValues);
 
 	public colorFeatureExtractor() {
-		JScrollPane logScrollPane = new JScrollPane();
-		logScrollPane.setBounds(631, 278, 181, 87);
 
+		
 		
 		
 		// Create a file chooser
-		fc = new JFileChooser();
+		//user.dir is to get defualt directory
+		fc =  new JFileChooser(new File(System.getProperty("user.dir")));
 		
 		// Uncomment one of the following lines to try a different
 		// file selection mode. The first allows just directories
@@ -48,31 +56,19 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 		 fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		
 		 openTestFolderButton = new JButton("Open test folder...");
-		 openTestFolderButton.setBounds(280, 32, 201, 51);
+		 openTestFolderButton.setBounds(308, 12, 201, 51);
 		 openTestFolderButton.addActionListener(this);
-
-		// Create the save button. We use the image from the JLF
-		// Graphics Repository (but we extracted it from the jar).
-		saveInputListButton = new JButton("Select file list location");
-		saveInputListButton.setBounds(280, 109, 191, 25);
-		saveInputListButton.addActionListener(this);
-		
-		  saveButton = new JButton("Select feature file location");
-		  saveButton.setBounds(28, 109, 222, 25);
-		  saveButton.addActionListener(this);
 		  
 		  extractTrainingFeatures = new JButton("Run on Training Data");
-		  extractTrainingFeatures.setBounds(174, 162, 183, 25);
+		  extractTrainingFeatures.setBounds(28, 127, 238, 47);
 		  extractTrainingFeatures.addActionListener(this);
 		setLayout(null);
 
 		// For layout purposes, put the buttons in a separate panel
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setBounds(12, 12, 613, 218);
+		buttonPanel.setBounds(12, 12, 801, 232);
 		buttonPanel.setLayout(null);
 		buttonPanel.add(openTestFolderButton);
-		buttonPanel.add(saveInputListButton);
-		buttonPanel.add(saveButton);
 		buttonPanel.add(extractTrainingFeatures);
 
 
@@ -83,18 +79,55 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 		// Create the open button. We use the image from the JLF
 		// Graphics Repository (but we extracted it from the jar).
 		openTrainingFolderButton = new JButton("Open training folder...");
-		openTrainingFolderButton.setBounds(28, 32, 201, 51);
+		openTrainingFolderButton.setBounds(28, 12, 238, 51);
 		buttonPanel.add(openTrainingFolderButton);
+		
+		
+		comboBox.setBounds(611, 35, 78, 30);
+		comboBox.setSelectedIndex(9);
+		buttonPanel.add(comboBox);
+		
+		JLabel lblNnewLabel = new JLabel("N");
+		lblNnewLabel.setBounds(568, 38, 41, 25);
+		buttonPanel.add(lblNnewLabel);
+		
+		JLabel lblCh = new JLabel("C_h");
+		lblCh.setBounds(568, 87, 48, 25);
+		buttonPanel.add(lblCh);
+		
+
+		comboBox_1.setBounds(628, 84, 78, 30);
+		comboBox_1.setSelectedIndex(7);
+		buttonPanel.add(comboBox_1);
+		
+		JButton btnNewButton = new JButton("Run on Test Data");
+		btnNewButton.setBounds(308, 127, 201, 47);
+		buttonPanel.add(btnNewButton);
+		
+		comboBox_2.setBounds(628, 135, 78, 30);
+		comboBox_2.setSelectedIndex(5);
+		buttonPanel.add(comboBox_2);
+		
+		JLabel lblCs = new JLabel("C_s");
+		lblCs.setBounds(568, 143, 48, 25);
+		buttonPanel.add(lblCs);
+		
+		JLabel lblCv = new JLabel("C_v");
+		lblCv.setBounds(568, 185, 48, 25);
+		buttonPanel.add(lblCv);
+		
+		comboBox_3.setBounds(628, 177, 78, 30);
+		comboBox_3.setSelectedIndex(5);
+		buttonPanel.add(comboBox_3);
 		openTrainingFolderButton.addActionListener(this);
-		add(logScrollPane);
 		
 				// Create the log first, because the action listeners
 				// need to refer to it.
 				log = new JTextArea(5, 20);
-				log.setBounds(10, 229, 615, 171);
+				log.setBounds(12, 244, 801, 200);
 				add(log);
 				log.setMargin(new Insets(5, 5, 5, 5));
-				log.setEditable(false);
+				log.setEditable(false);				
 	}
 
 	public void actionPerformed(ActionEvent e) 
@@ -106,17 +139,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				trainData = fc.getSelectedFile();
 				// This is where a real application would open the file.
-				log.append("Folder selected for training : " + trainData.toString() + "." + newline);
-				
-				/*try
-				{
-					ML.batchColorFeatureBuilder(file.toString(), 10, 8, 6, 6,new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/continuousTest2.train"),new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/output/filesInputTest2.txt"));
-				}
-				catch(IOException k)
-				{
-					
-				}
-				log.append("fdd\n");*/
+				log.append("Folder selected for training : " + trainData.toString() + "." + newline);				
 			} else {
 				log.append("Open command cancelled by user." + newline);
 			}
@@ -143,38 +166,35 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 		            log.setCaretPosition(log.getDocument().getLength());
 		}
 		}
-		
-		// Handle save button action.
-		
-		else if (e.getSource() == saveInputListButton) {
-			int returnVal = fc.showSaveDialog(colorFeatureExtractor.this);
-			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				inputFileList = fc.getSelectedFile();
-				// This is where a real application would save the file.
-				log.append("File selected for storing input file list : " + inputFileList.getName() + "." + newline);
-			} else {
-				log.append("Save command cancelled by user." + newline);
-			}
-			log.setCaretPosition(log.getDocument().getLength());
-		}
-		
-		else if (e.getSource() == saveButton) {
-            int returnVal = fc.showSaveDialog(colorFeatureExtractor.this);
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                extractedFeatures = fc.getSelectedFile();
-                //This is where a real application would save the file.
-                log.append("File selected for storing extracted features : " + extractedFeatures.getName() + "." + newline);
-            } else {
-                log.append("Save command cancelled by user." + newline);
-            }
-            log.setCaretPosition(log.getDocument().getLength());
-        }
-		
+	
 		else if (e.getSource() == extractTrainingFeatures) 
 		{
 			try
 			{
-				ML.batchColorFeatureBuilder(trainData.toString(), 10, 8, 6, 6,extractedFeatures,inputFileList);
+				int N=10,C_h=8,C_s=6,C_v=6;
+				//int N = Integer.parseInt(comboBox.getSelectedItem().toString());
+				//int C_h = Integer.parseInt(comboBox_1.getSelectedItem().toString());
+				//int C_s = Integer.parseInt(comboBox_2.getSelectedItem().toString());
+				//int C_v = Integer.parseInt(comboBox_3.getSelectedItem().toString());
+				
+				//generate log file
+				FileWriter F = new FileWriter(new File("results/collorFeatureExtractor.log"));
+				StringBuffer logData = new StringBuffer();
+				
+				logData.append("Training Data : "+trainData.getName()+"\n");
+				logData.append("N : "+Integer.toString(N)+"\n");
+				logData.append("C_h : "+Integer.toString(C_h)+"\n");
+				logData.append("C_s : "+Integer.toString(C_s)+"\n");
+				logData.append("C_v : "+Integer.toString(C_v)+"\n");
+				
+				Date d =new Date();
+				
+				logData.append("Start time : "+d.toString()+"\n");
+				F.write(logData.toString());
+				F.flush();
+				F.close();
+				
+				ML.batchColorFeatureBuilder(trainData.toString(), N, C_h, C_s, C_v,extractedFeatures,inputFileList);
 			}
 			catch(IOException k)
 			{
@@ -204,11 +224,14 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 		JFrame frame = new JFrame("ColorFeaturesExtractor");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		frame.setMinimumSize(new Dimension(800,600));
+		
 		// Add content to the window.
 		frame.getContentPane().add(new colorFeatureExtractor());
 
 		// Display the window.
 		frame.pack();
+		frame.setLocationRelativeTo(null);     
 		frame.setVisible(true);
 	}
 

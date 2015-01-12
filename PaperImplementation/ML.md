@@ -149,3 +149,7 @@ Step 5 : Create GUI for above code.
 
 + Use [Window Builder](https://eclipse.org/windowbuilder/) in Eclipse.
 + [How to install?](https://eclipse.org/windowbuilder/download.php)
++ [jfile chooser](http://docs.oracle.com/javase/7/docs/api/javax/swing/JFileChooser.html)
++ [set defult directory to current](http://stackoverflow.com/questions/4871051/getting-the-current-working-directory-in-java)
++ [set at center of screen](http://stackoverflow.com/questions/9543320/how-to-position-the-form-in-the-center-screen)
++ [set min. size](http://stackoverflow.com/questions/2781939/setting-minimum-size-limit-for-a-window-in-java-swing)
