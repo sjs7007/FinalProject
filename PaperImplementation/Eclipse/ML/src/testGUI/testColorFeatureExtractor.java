@@ -56,13 +56,13 @@ import javax.swing.UIManager;
  *   images/Open16.gif
  *   images/Save16.gif
  */
-public class colorFeatureExtractor extends JPanel implements ActionListener {
+public class testColorFeatureExtractor extends JPanel implements ActionListener {
 	static private final String newline = "\n";
 	JButton openTrainingFolderButton, saveButton, openTestFolderButton;
 	JTextArea log;
 	JFileChooser fc;
 
-	public colorFeatureExtractor() {
+	public testColorFeatureExtractor() {
 		super(new BorderLayout());
 
 		// Create the log first, because the action listeners
@@ -116,7 +116,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 
 		// Handle open button action.
 		if (e.getSource() == openTrainingFolderButton) {
-			int returnVal = fc.showOpenDialog(colorFeatureExtractor.this);
+			int returnVal = fc.showOpenDialog(testColorFeatureExtractor.this);
 
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				File file = fc.getSelectedFile();
@@ -135,7 +135,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 		{
 			// Handle open button action.
 			 if (e.getSource() == openTestFolderButton) {
-		            int returnVal = fc.showOpenDialog(colorFeatureExtractor.this);
+		            int returnVal = fc.showOpenDialog(testColorFeatureExtractor.this);
 
 		            if (returnVal == JFileChooser.APPROVE_OPTION) {
 		                File file = fc.getSelectedFile();
@@ -152,7 +152,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 		// Handle save button action.
 		
 		else if (e.getSource() == saveButton) {
-			int returnVal = fc.showSaveDialog(colorFeatureExtractor.this);
+			int returnVal = fc.showSaveDialog(testColorFeatureExtractor.this);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				File file = fc.getSelectedFile();
 				// This is where a real application would save the file.
@@ -177,7 +177,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 
 	/** Returns an ImageIcon, or null if the path was invalid. */
 	protected static ImageIcon createImageIcon(String path) {
-		java.net.URL imgURL = colorFeatureExtractor.class.getResource(path);
+		java.net.URL imgURL = testColorFeatureExtractor.class.getResource(path);
 		if (imgURL != null) {
 			return new ImageIcon(imgURL);
 		} else {
@@ -196,7 +196,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Add content to the window.
-		frame.add(new colorFeatureExtractor());
+		frame.add(new testColorFeatureExtractor());
 
 		// Display the window.
 		frame.pack();
