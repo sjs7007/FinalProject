@@ -165,6 +165,12 @@ For extraction color features from training images:-
 + Set test number, if not chnaged default value is "default".
 + Results will be stored as text file inside results folder. Their names will be of this format :
 
-	colorFeatureExtractor<testNumber>.list
-	colorFeatureExtractorTrain<testNumber>.log
-	colorFeatures<testNumber>.train
+	colorFeatureExtractor<testNumber>.list           
+	colorFeatureExtractorTrain<testNumber>.log            
+	colorFeatures<testNumber>.train           
+
+![GUI1](sample/GUI1.png)
+
+For extractin of testing images...
+
+	Adding event handlers left...
