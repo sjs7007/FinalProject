@@ -57,9 +57,10 @@ import javax.swing.UIManager;
  */
 public class colorFeatureExtractor extends JPanel implements ActionListener {
 	static private final String newline = "\n";
-	JButton openTrainingFolderButton, saveInputListButton, openTestFolderButton, saveButton;
+	JButton openTrainingFolderButton, saveInputListButton, openTestFolderButton, saveButton, extractTrainingFeatures;
 	JTextArea log;
 	JFileChooser fc;
+	File trainData = null,testData =null,inputFileList=null,extractedFeatures=null;
 
 	public colorFeatureExtractor() {
 		super(new BorderLayout());
@@ -71,9 +72,11 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 		log.setEditable(false);
 		JScrollPane logScrollPane = new JScrollPane(log);
 
+		
+		
 		// Create a file chooser
 		fc = new JFileChooser();
-
+		
 		// Uncomment one of the following lines to try a different
 		// file selection mode. The first allows just directories
 		// to be selected (and, at least in the Java look and feel,
@@ -86,23 +89,26 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 
 		// Create the open button. We use the image from the JLF
 		// Graphics Repository (but we extracted it from the jar).
-		openTrainingFolderButton = new JButton("Open a File...",
+		openTrainingFolderButton = new JButton("Open training folder...",
 				createImageIcon("images/Open16.gif"));
 		openTrainingFolderButton.addActionListener(this);
 		
-		 openTestFolderButton = new JButton("Open a File...",
+		 openTestFolderButton = new JButton("Open test folder...",
                  createImageIcon("images/Open16.gif"));
 		 openTestFolderButton.addActionListener(this);
 
 		// Create the save button. We use the image from the JLF
 		// Graphics Repository (but we extracted it from the jar).
-		saveInputListButton = new JButton("Save a File...",
+		saveInputListButton = new JButton("Select file list location",
 				createImageIcon("images/Save16.gif"));
 		saveInputListButton.addActionListener(this);
 		
-		  saveButton = new JButton("Save a File...",
+		  saveButton = new JButton("Select feature file location",
                   createImageIcon("images/Save16.gif"));
 		  saveButton.addActionListener(this);
+		  
+		  extractTrainingFeatures = new JButton("Run on Training Data");
+		  extractTrainingFeatures.addActionListener(this);
 
 		// For layout purposes, put the buttons in a separate panel
 		JPanel buttonPanel = new JPanel(); // use FlowLayout
@@ -110,6 +116,8 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 		buttonPanel.add(openTestFolderButton);
 		buttonPanel.add(saveInputListButton);
 		buttonPanel.add(saveButton);
+		buttonPanel.add(extractTrainingFeatures);
+
 
 		// Add the buttons and the log to this panel.
 		add(buttonPanel, BorderLayout.PAGE_START);
@@ -118,8 +126,6 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) 
 	{
-
-		File trainData,testData,inputFileList,extractedFeatures;
 		// Handle open button action.
 		if (e.getSource() == openTrainingFolderButton) {
 			int returnVal = fc.showOpenDialog(colorFeatureExtractor.this);
@@ -127,7 +133,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				trainData = fc.getSelectedFile();
 				// This is where a real application would open the file.
-				log.append("Opening: " + trainData.getName() + "." + newline);
+				log.append("Folder selected for training : " + trainData.toString() + "." + newline);
 				
 				/*try
 				{
@@ -156,7 +162,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 		            if (returnVal == JFileChooser.APPROVE_OPTION) {
 		                testData = fc.getSelectedFile();
 		                //This is where a real application would open the file.
-		                log.append("Opening: " + testData.getName() + "." + newline);
+		                log.append("Folder seelcted for testing : " + testData.getName() + "." + newline);
 		          
 		            } else {
 		                log.append("Open command cancelled by user." + newline);
@@ -188,6 +194,19 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
             } else {
                 log.append("Save command cancelled by user." + newline);
             }
+            log.setCaretPosition(log.getDocument().getLength());
+        }
+		
+		else if (e.getSource() == extractTrainingFeatures) 
+		{
+			try
+			{
+				ML.batchColorFeatureBuilder(trainData.toString(), 10, 8, 6, 6,extractedFeatures,inputFileList);
+			}
+			catch(IOException k)
+			{
+				
+			}
             log.setCaretPosition(log.getDocument().getLength());
         }
 	}

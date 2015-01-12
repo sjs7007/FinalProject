@@ -91,7 +91,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 				createImageIcon("images/Open16.gif"));
 		openTrainingFolderButton.addActionListener(this);
 		
-		 openTestFolderButton = new JButton("Open Test Images Directory ...",
+		 openTestFolderButton = new JButton("Open ...",
                  createImageIcon("images/Open16.gif"));
 		 openTestFolderButton.addActionListener(this);
 
