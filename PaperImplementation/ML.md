@@ -159,7 +159,7 @@ Step 5 : Create GUI for above code.
 
 How to use GUI
 
-For extraction color features from training images:-
+1. For extraction color features from training images:-
 
 + Select folder of images for training.
 + Set parameter values.
@@ -172,6 +172,41 @@ For extraction color features from training images:-
 
 ![GUI1](sample/GUI1.png)
 
-For extractin of testing images...
+2. For extraction color features from test images:-
 
-	Adding event handlers left...
+	Same steps as above, except following files produced
+	
+	colorFeatureExtractor<testNumber>.list           
+	colorFeatureExtractorTest<testNumber>.log            
+	colorFeatures<testNumber>.test  
+
+3. SVM Train
+
++ Select .train file for training 
+
+Files generated : 
+	
+	SVMDefault.model
+	SVMTrainDefault.log
+
+4. SVM Predict
+
++ Select .model from previous step.
++ Select .test file.
+
+Files generated : 
+	SVMDefault.result
+	SVMPredictDefault.log
+
+![GUI2](sample/GUI2.png)
+
+[Ready jar of GUI2](/home/shinchan/FinalProject/jarReleases/GUI2ML.jar) 
+[how to run jar files](http://stackoverflow.com/questions/5774970/run-jar-file-in-command-prompt)
+
+```
+java -jar <jar-file-name>.jar
+```
+
+Or in Ubuntu :
+1. Allow executing file as program by right clicking.
+2. Set default open with to open jdk run time.
