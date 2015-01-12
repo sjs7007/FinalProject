@@ -126,10 +126,8 @@ class ML
                 Color c = new Color(image.getRGB(j, i));
                 hsvImage[i][j]=new hsv(c.getRed(),c.getGreen(),c.getBlue());
             }
-        }
-        
-       // HSV2File(hsvImage,width,height); debugging code removed
-        
+        }      
+       // HSV2File(hsvImage,width,height); debugging code removed      
         return hsvImage;
     }
     
@@ -207,21 +205,6 @@ class ML
                             temp.and(hP);
                             MyBitMatrix FinalMat = MyBitMatrix.toMyBitMatrix(temp);
                             
-                            /*if(count==x) debugging code removed..
-                            {
-                                temp4 = "hP from Java \n";
-                                System.out.print(temp4 + hP.toStringEasyCompare());
-                                
-                                temp4 = "sP from Java \n";
-                                System.out.print(temp4 + sP.toStringEasyCompare());
-                                
-                                temp4 = "vP from Java \n";
-                                System.out.print(temp4 + vP.toStringEasyCompare());
-                                
-                                temp4 = "Final from Java \n";
-                                System.out.print(temp4 + FinalMat.toStringEasyCompare());
-                            }
-                            */
                             feature.put(count, isAnyTrue(FinalMat));
                             count++;
                         }
@@ -231,8 +214,7 @@ class ML
         }
         return feature;
     }
-    
-    
+       
     /*
      * Input : matrix of hsv image, comparison data type(0,1,2) i.e. h,s or v, low=lower limit, high=higher limit
      * 
@@ -284,10 +266,8 @@ class ML
      * 
      * Each feature vector is stored along with type=cat/dog together as an element in vector of ADT : fileData
      */
-    
-   
-    
-    public static fileData[] batchColorFeatureBuilder(String ip,int N,int C_h,int C_s,int C_v) throws IOException
+  
+    public static fileData[] batchColorFeatureBuilder(String ip,int N,int C_h,int C_s,int C_v, File trainFile,File fileInputList) throws IOException
     {
     	//get array of all files 
     	
@@ -296,10 +276,9 @@ class ML
     	File allImages[]=ipFiles.listFiles();
     	int nImages=allImages.length;
     	fileData allImageData[]=new fileData[nImages];
-
     	
-    	FileWriter op = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/continuousTest2.train");
-    	FileWriter op2 = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/output/filesInputTest2.txt");
+    	FileWriter op = new FileWriter(trainFile.toString());
+    	FileWriter op2 = new FileWriter(fileInputList.toString());
     	
     	for(int i=0;i<nImages;i++)
     	{
@@ -346,77 +325,10 @@ class ML
     	return allImageData;
     }
     
-    /*
-     * take in input data of features and convert in format needed by LIBSVM
-     *  e.g. +1 1:0.7 2:1 3:1 translates to:
-		Assign to class +1, the point (0.7,1,1).
-     */
-   
-   /* 
-   public static void toLIBSVMFormat(fileData[] allImageData) throws IOException
-   {
-		//FileWriter op = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/colorLIBSVM.train");
-		FileWriter op = new FileWriter("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/test2.train");
-		
-		for(int i=0;i<allImageData.length;i++)
-		{
-			StringBuffer ip = new StringBuffer();
-			ip.append(allImageData[i].type);
-			for(int j=0;j<allImageData[i].colorFeatureVector.size();j++)
-			{
-				if(allImageData[i].colorFeatureVector.get(j))
-				{
-					ip.append(" "+(j+1)+":1");
-				}
-			}
-			ip.append("\n");
-			op.write(ip.toString());
-		}	
-		op.flush();
-   }
-   
-   replaced by continuous write
-   */
-    
     public static void main(String args[]) throws IOException
     {
-        // img2RGB2HSV("dog.55.jpg");
-        /*hsv test = new hsv(10,10,20);
-        test.display();*/
        int N=5,C_h=10,C_s=6,C_v=6;
-       //BitVector colorFeatures = colorFeatureBuilder(img2RGB2HSV("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/dog.55.jpg"), N, C_h, C_s, C_v);
-       //BitVector colorFeatures = colorFeatureBuilder(img2RGB2HSV("/home/shinchan/Downloads/zipFiles/train/"), N, C_h, C_s, C_v);
-          
-       /*String temp = "Single input Color features from Java.\n";
-       int count=0;
-       for(int i=0;i<colorFeatures.size();i++)
-       {
-           if(colorFeatures.get(i))
-           {
-               temp+=Integer.toString(count)+"\n";
-           }
-           count++;allImageData[i]=new fileData(1,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
-       }
-       System.out.print(temp);*/
-       
-       
-       
-     // String ip = new String("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/trainingImageResized/");
-       
        String ip = new String("/home/shinchan/Downloads/zipFiles/testResized");
-       
-       //String ip = new String("/home/shinchan/Downloads/zipFiles/testResized");
-
-   
-       fileData allImageData[]=batchColorFeatureBuilder(ip, N, C_h, C_s, C_v);
-       
-       /*for(int i=0;i<allImageData.length;i++)
-       {
-    	   System.out.println(allImageData[i].colorFeatureVector.toString()+"\n");
-       }*/
-       
-      /*  replaced by continuos write 
-       * toLIBSVMFormat(allImageData);
-       */
+       fileData allImageData[]=batchColorFeatureBuilder(ip, N, C_h, C_s, C_v,new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/continuousTest2.train"),new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/output/filesInputTest2.txt")); 
     }
 }
