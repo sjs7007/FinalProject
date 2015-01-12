@@ -1,8 +1,8 @@
 Training Data : trainingImageResized
-N : 10
-C_h : 8
+N : 4
+C_h : 4
 C_s : 6
 C_v : 6
-Start time : Mon Jan 12 19:58:55 IST 2015
-End time : Mon Jan 12 19:58:59 IST 2015
-Execution Time : 0.06296667 minutes
+Start time : Mon Jan 12 20:00:15 IST 2015
+End time : Mon Jan 12 20:00:17 IST 2015
+Execution Time : 0.0266 minutes

@@ -153,3 +153,18 @@ Step 5 : Create GUI for above code.
 + [set defult directory to current](http://stackoverflow.com/questions/4871051/getting-the-current-working-directory-in-java)
 + [set at center of screen](http://stackoverflow.com/questions/9543320/how-to-position-the-form-in-the-center-screen)
 + [set min. size](http://stackoverflow.com/questions/2781939/setting-minimum-size-limit-for-a-window-in-java-swing)
++ [time difference](http://stackoverflow.com/questions/5911387/difference-in-time-between-two-dates-in-java)
++ [get current time](http://www.tutorialspoint.com/java/java_date_time.htm)
+
+How to use GUI
+
+For extraction color features from training images:-
+
++ Select folder of images for training.
++ Set parameter values.
++ Set test number, if not chnaged default value is "default".
++ Results will be stored as text file inside results folder. Their names will be of this format :
+
+	colorFeatureExtractor<testNumber>.list
+	colorFeatureExtractorTrain<testNumber>.log
+	colorFeatures<testNumber>.train

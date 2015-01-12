@@ -190,16 +190,23 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 				int C_s = Integer.parseInt(comboBox_2.getSelectedItem().toString());
 				int C_v = Integer.parseInt(comboBox_3.getSelectedItem().toString());
 				
+				
+				
+				long nImages=trainData.listFiles().length;
+				
 				String testNumber = textField.getText();
 				String testDirectory = "results/";
 				inputFileList = new File(testDirectory+"colorFeatureExtractor"+testNumber+".list");
 				extractedFeatures = new File(testDirectory+"colorFeatures"+testNumber+".train");
 				
 				//generate log file
-				FileWriter F = new FileWriter(new File(testDirectory+"colorFeatureExtractor"+testNumber+".log"));
+				FileWriter F = new FileWriter(new File(testDirectory+"colorFeatureExtractorTrain"+testNumber+".log"));
 				StringBuffer logData = new StringBuffer();
 				
 				logData.append("Training Data : "+trainData.getName()+"\n");
+				logData.append("Number of images : "+nImages+"\n");
+				
+				
 				logData.append("N : "+Integer.toString(N)+"\n");
 				logData.append("C_h : "+Integer.toString(C_h)+"\n");
 				logData.append("C_s : "+Integer.toString(C_s)+"\n");
