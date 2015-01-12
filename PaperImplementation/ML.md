@@ -200,7 +200,8 @@ Files generated :
 
 ![GUI2](sample/GUI2.png)
 
-[Ready jar of GUI2](jarReleases/GUI2ML.jar) 
+[Ready jar of GUI2](jarReleases/GUI2ML.jar)  
+  
 [how to run jar files](http://stackoverflow.com/questions/5774970/run-jar-file-in-command-prompt)
 
 ```
