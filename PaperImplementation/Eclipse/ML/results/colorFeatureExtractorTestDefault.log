@@ -1,0 +1,10 @@
+
+Testing Data : trainingImageResized
+Number of images : 8
+N : 10
+C_h : 8
+C_s : 6
+C_v : 6
+Start time : Tue Jan 13 00:02:37 IST 2015
+End time : Tue Jan 13 00:02:40 IST 2015
+Time take for feature extraction for test images : 0.051416665 minutes

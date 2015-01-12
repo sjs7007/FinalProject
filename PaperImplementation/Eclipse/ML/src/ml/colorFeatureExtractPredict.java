@@ -31,7 +31,7 @@ import javax.swing.UIManager;
  */
 public class colorFeatureExtractPredict extends JPanel implements ActionListener {
 	static private final String newline = "\n";
-	JButton openTrainingFolderButton, openTestFolderButton, extractTrainingFeatures;
+	JButton openTrainingFolderButton, openTestFolderButton, extractTrainingFeatures, extractTestingFeatures;
 	JTextArea log;
 	JFileChooser fc;
 	File trainData = new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/trainingImageResized"),testData =null,inputFileList=null,extractedFeatures=null,trainFeatures=null, testFeatures=null, modelFile=null;
@@ -103,9 +103,7 @@ public class colorFeatureExtractPredict extends JPanel implements ActionListener
 		comboBox_1.setSelectedIndex(7);
 		buttonPanel.add(comboBox_1);
 		
-		JButton btnNewButton = new JButton("Run on Test Data");
-		btnNewButton.setBounds(308, 108, 201, 47);
-		buttonPanel.add(btnNewButton);
+	
 		
 		comboBox_2.setBounds(628, 135, 78, 30);
 		comboBox_2.setSelectedIndex(5);
@@ -168,6 +166,83 @@ public class colorFeatureExtractPredict extends JPanel implements ActionListener
 				});
 				btnSelectTrainingData.setBounds(31, 407, 238, 51);
 				add(btnSelectTrainingData);
+				
+				JButton extractTestingFeatures = new JButton("Run on Test Data");
+				extractTestingFeatures.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						
+						try
+						{
+							//int N=10,C_h=8,C_s=6,C_v=6;
+							int N = Integer.parseInt(comboBox.getSelectedItem().toString());
+							int C_h = Integer.parseInt(comboBox_1.getSelectedItem().toString());
+							int C_s = Integer.parseInt(comboBox_2.getSelectedItem().toString());
+							int C_v = Integer.parseInt(comboBox_3.getSelectedItem().toString());
+							
+							File file = new File("results");
+							if (!file.exists()) 
+							{
+								if (file.mkdir()) 
+								{
+									System.out.println("Results directory is not present, created one.");
+								} 
+								else 
+								{
+									System.out.println("Failed to create results directory.");
+								}
+							}
+
+							long nImages=testData.listFiles().length;
+							
+							String testNumber = textField.getText();
+							String testDirectory = "results/";
+							inputFileList = new File(testDirectory+"colorFeatureExtractor"+testNumber+".list");
+							extractedFeatures = new File(testDirectory+"colorFeatures"+testNumber+".test");
+							
+							//generate log file
+							FileWriter F = new FileWriter(new File(testDirectory+"colorFeatureExtractorTest"+testNumber+".log"));
+							StringBuffer logData = new StringBuffer();
+							
+							logData.append("\nTesting Data : "+testData.getName()+"\n");
+							logData.append("Number of images : "+nImages+"\n");
+							
+							
+							logData.append("N : "+Integer.toString(N)+"\n");
+							logData.append("C_h : "+Integer.toString(C_h)+"\n");
+							logData.append("C_s : "+Integer.toString(C_s)+"\n");
+							logData.append("C_v : "+Integer.toString(C_v)+"\n");
+							
+							Date start =new Date();
+							
+							logData.append("Start time : "+start.toString()+"\n");
+									
+							ML.batchColorFeatureBuilder(testData.toString(), N, C_h, C_s, C_v,extractedFeatures,inputFileList);
+						
+							
+							Date end = new Date();
+							logData.append("End time : "+end.toString()+"\n");
+							
+							
+							long executionTimeMS = end.getTime()-start.getTime(); //in milliseconds
+							String executionTime = Float.toString((float)executionTimeMS/(60*1000))+" minutes";
+							
+							logData.append("Time take for feature extraction for test images : "+executionTime+"\n");
+							
+							log.append(logData.toString());
+							F.write(logData.toString());
+							F.flush();
+							F.close();
+						}
+						catch(IOException k)
+						{
+							
+						}
+			            log.setCaretPosition(log.getDocument().getLength());
+						
+					}
+				});
+				extractTestingFeatures.setBounds(308, 108, 201, 47);
+				buttonPanel.add(extractTestingFeatures);
 				
 				JButton btnTrain = new JButton("Train");
 				btnTrain.addActionListener(new ActionListener() {
@@ -425,7 +500,7 @@ public class colorFeatureExtractPredict extends JPanel implements ActionListener
 				long executionTimeMS = end.getTime()-start.getTime(); //in milliseconds
 				String executionTime = Float.toString((float)executionTimeMS/(60*1000))+" minutes";
 				
-				logData.append("Time take for feature extraction : "+executionTime+"\n");
+				logData.append("Time take for feature extraction for training images : "+executionTime+"\n");
 				
 				log.append(logData.toString());
 				F.write(logData.toString());
@@ -438,6 +513,7 @@ public class colorFeatureExtractPredict extends JPanel implements ActionListener
 			}
             log.setCaretPosition(log.getDocument().getLength());
         }
+		
 	
 	}
 
