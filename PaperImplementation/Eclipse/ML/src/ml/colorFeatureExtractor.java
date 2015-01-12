@@ -190,8 +190,19 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 				int C_s = Integer.parseInt(comboBox_2.getSelectedItem().toString());
 				int C_v = Integer.parseInt(comboBox_3.getSelectedItem().toString());
 				
-				
-				
+				File file = new File("results");
+				if (!file.exists()) 
+				{
+					if (file.mkdir()) 
+					{
+						System.out.println("Results directory is not present, created one.");
+					} 
+					else 
+					{
+						System.out.println("Failed to create results directory.");
+					}
+				}
+
 				long nImages=trainData.listFiles().length;
 				
 				String testNumber = textField.getText();
