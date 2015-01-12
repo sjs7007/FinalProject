@@ -1,6 +1,7 @@
 package ml;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,11 +17,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import java.awt.Font;
-import javax.swing.JTextField;
 
 /*
  * FileChooserDemo.java uses these files:
@@ -69,15 +71,13 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 
 		// For layout purposes, put the buttons in a separate panel
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setBounds(12, 12, 801, 232);
+		buttonPanel.setBounds(12, 0, 757, 381);
 		buttonPanel.setLayout(null);
 		buttonPanel.add(openTestFolderButton);
 		buttonPanel.add(extractTrainingFeatures);
 
-
 		// Add the buttons and the log to this panel.
 		add(buttonPanel);
-		// fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
 		// Create the open button. We use the image from the JLF
 		// Graphics Repository (but we extracted it from the jar).
@@ -137,10 +137,21 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 				// Create the log first, because the action listeners
 				// need to refer to it.
 				log = new JTextArea(5, 20);
+				
+				
+				 JScrollPane scroll = new JScrollPane (log);
+				 scroll.setLocation(12, 249);
+				 scroll.setSize(736, 120);
+				scroll.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
+
 				log.setBounds(12, 244, 801, 200);
-				add(log);
+				log.setBounds(12, 244, 801, 200);
+				buttonPanel.add(scroll);
+				//add(log);
 				log.setMargin(new Insets(5, 5, 5, 5));
-				log.setEditable(false);				
+				
+			   
+
 	}
 
 	public void actionPerformed(ActionEvent e) 

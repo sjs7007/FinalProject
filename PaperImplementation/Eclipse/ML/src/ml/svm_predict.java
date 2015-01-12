@@ -1,4 +1,4 @@
-package testSVM;
+package ml;
 
 import libsvm.*;
 import java.io.*;
