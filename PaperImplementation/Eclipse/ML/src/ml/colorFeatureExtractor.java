@@ -19,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import java.awt.Font;
+import javax.swing.JTextField;
 
 /*
  * FileChooserDemo.java uses these files:
@@ -30,12 +32,13 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 	JButton openTrainingFolderButton, openTestFolderButton, extractTrainingFeatures;
 	JTextArea log;
 	JFileChooser fc;
-	File trainData = null,testData =null,inputFileList=new File("colorFeatureExtractor.list"),extractedFeatures=new File("colorFeatureExtractor.train");
+	File trainData = new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/trainingImageResized"),testData =null,inputFileList=null,extractedFeatures=null;
 	String[] comboValues = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };	
 	JComboBox comboBox = new JComboBox(comboValues);
 	JComboBox comboBox_1 = new JComboBox(comboValues);
 	JComboBox comboBox_2 = new JComboBox(comboValues);
 	JComboBox comboBox_3 = new JComboBox(comboValues);
+	private JTextField textField;
 
 	public colorFeatureExtractor() {
 
@@ -60,7 +63,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 		 openTestFolderButton.addActionListener(this);
 		  
 		  extractTrainingFeatures = new JButton("Run on Training Data");
-		  extractTrainingFeatures.setBounds(28, 127, 238, 47);
+		  extractTrainingFeatures.setBounds(28, 108, 238, 47);
 		  extractTrainingFeatures.addActionListener(this);
 		setLayout(null);
 
@@ -101,7 +104,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 		buttonPanel.add(comboBox_1);
 		
 		JButton btnNewButton = new JButton("Run on Test Data");
-		btnNewButton.setBounds(308, 127, 201, 47);
+		btnNewButton.setBounds(308, 108, 201, 47);
 		buttonPanel.add(btnNewButton);
 		
 		comboBox_2.setBounds(628, 135, 78, 30);
@@ -119,6 +122,16 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 		comboBox_3.setBounds(628, 177, 78, 30);
 		comboBox_3.setSelectedIndex(5);
 		buttonPanel.add(comboBox_3);
+		
+		JLabel lblNewLabel = new JLabel("Test Number :");
+		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblNewLabel.setBounds(28, 185, 178, 35);
+		buttonPanel.add(lblNewLabel);
+		
+		textField = new JTextField("Default");
+		textField.setBounds(204, 190, 114, 29);
+		buttonPanel.add(textField);
+		textField.setColumns(10);
 		openTrainingFolderButton.addActionListener(this);
 		
 				// Create the log first, because the action listeners
@@ -171,14 +184,19 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 		{
 			try
 			{
-				int N=10,C_h=8,C_s=6,C_v=6;
-				//int N = Integer.parseInt(comboBox.getSelectedItem().toString());
-				//int C_h = Integer.parseInt(comboBox_1.getSelectedItem().toString());
-				//int C_s = Integer.parseInt(comboBox_2.getSelectedItem().toString());
-				//int C_v = Integer.parseInt(comboBox_3.getSelectedItem().toString());
+				//int N=10,C_h=8,C_s=6,C_v=6;
+				int N = Integer.parseInt(comboBox.getSelectedItem().toString());
+				int C_h = Integer.parseInt(comboBox_1.getSelectedItem().toString());
+				int C_s = Integer.parseInt(comboBox_2.getSelectedItem().toString());
+				int C_v = Integer.parseInt(comboBox_3.getSelectedItem().toString());
+				
+				String testNumber = textField.getText();
+				String testDirectory = "results/";
+				inputFileList = new File(testDirectory+"colorFeatureExtractor"+testNumber+".list");
+				extractedFeatures = new File(testDirectory+"colorFeatures"+testNumber+".train");
 				
 				//generate log file
-				FileWriter F = new FileWriter(new File("results/collorFeatureExtractor.log"));
+				FileWriter F = new FileWriter(new File(testDirectory+"colorFeatureExtractor"+testNumber+".log"));
 				StringBuffer logData = new StringBuffer();
 				
 				logData.append("Training Data : "+trainData.getName()+"\n");
@@ -187,14 +205,25 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 				logData.append("C_s : "+Integer.toString(C_s)+"\n");
 				logData.append("C_v : "+Integer.toString(C_v)+"\n");
 				
-				Date d =new Date();
+				Date start =new Date();
 				
-				logData.append("Start time : "+d.toString()+"\n");
+				logData.append("Start time : "+start.toString()+"\n");
+						
+				ML.batchColorFeatureBuilder(trainData.toString(), N, C_h, C_s, C_v,extractedFeatures,inputFileList);
+				
+				Date end = new Date();
+				logData.append("End time : "+end.toString()+"\n");
+				
+				
+				long executionTimeMS = end.getTime()-start.getTime(); //in milliseconds
+				String executionTime = Float.toString((float)executionTimeMS/(60*1000))+" minutes";
+				
+				logData.append("Execution Time : "+executionTime+"\n");
+				
+				log.append(logData.toString());
 				F.write(logData.toString());
 				F.flush();
 				F.close();
-				
-				ML.batchColorFeatureBuilder(trainData.toString(), N, C_h, C_s, C_v,extractedFeatures,inputFileList);
 			}
 			catch(IOException k)
 			{
