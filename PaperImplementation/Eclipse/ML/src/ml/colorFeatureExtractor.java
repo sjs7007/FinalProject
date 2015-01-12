@@ -30,14 +30,8 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 	File trainData = null,testData =null,inputFileList=null,extractedFeatures=null;
 
 	public colorFeatureExtractor() {
-		super(new BorderLayout());
-
-		// Create the log first, because the action listeners
-		// need to refer to it.
-		log = new JTextArea(5, 20);
-		log.setMargin(new Insets(5, 5, 5, 5));
-		log.setEditable(false);
-		JScrollPane logScrollPane = new JScrollPane(log);
+		JScrollPane logScrollPane = new JScrollPane();
+		logScrollPane.setBounds(631, 278, 181, 87);
 
 		
 		
@@ -52,30 +46,30 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 		// then the default mode (FILES_ONLY) will be used.
 		//
 		 fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		// fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-
-		// Create the open button. We use the image from the JLF
-		// Graphics Repository (but we extracted it from the jar).
-		openTrainingFolderButton = new JButton("Open training folder...");
-		openTrainingFolderButton.addActionListener(this);
 		
 		 openTestFolderButton = new JButton("Open test folder...");
+		 openTestFolderButton.setBounds(280, 32, 201, 51);
 		 openTestFolderButton.addActionListener(this);
 
 		// Create the save button. We use the image from the JLF
 		// Graphics Repository (but we extracted it from the jar).
 		saveInputListButton = new JButton("Select file list location");
+		saveInputListButton.setBounds(280, 109, 191, 25);
 		saveInputListButton.addActionListener(this);
 		
 		  saveButton = new JButton("Select feature file location");
+		  saveButton.setBounds(28, 109, 222, 25);
 		  saveButton.addActionListener(this);
 		  
 		  extractTrainingFeatures = new JButton("Run on Training Data");
+		  extractTrainingFeatures.setBounds(174, 162, 183, 25);
 		  extractTrainingFeatures.addActionListener(this);
+		setLayout(null);
 
 		// For layout purposes, put the buttons in a separate panel
-		JPanel buttonPanel = new JPanel(); // use FlowLayout
-		buttonPanel.add(openTrainingFolderButton);
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBounds(12, 12, 613, 218);
+		buttonPanel.setLayout(null);
 		buttonPanel.add(openTestFolderButton);
 		buttonPanel.add(saveInputListButton);
 		buttonPanel.add(saveButton);
@@ -83,8 +77,24 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 
 
 		// Add the buttons and the log to this panel.
-		add(buttonPanel, BorderLayout.PAGE_START);
-		add(logScrollPane, BorderLayout.CENTER);
+		add(buttonPanel);
+		// fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+
+		// Create the open button. We use the image from the JLF
+		// Graphics Repository (but we extracted it from the jar).
+		openTrainingFolderButton = new JButton("Open training folder...");
+		openTrainingFolderButton.setBounds(28, 32, 201, 51);
+		buttonPanel.add(openTrainingFolderButton);
+		openTrainingFolderButton.addActionListener(this);
+		add(logScrollPane);
+		
+				// Create the log first, because the action listeners
+				// need to refer to it.
+				log = new JTextArea(5, 20);
+				log.setBounds(10, 229, 615, 171);
+				add(log);
+				log.setMargin(new Insets(5, 5, 5, 5));
+				log.setEditable(false);
 	}
 
 	public void actionPerformed(ActionEvent e) 
@@ -195,7 +205,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Add content to the window.
-		frame.add(new colorFeatureExtractor());
+		frame.getContentPane().add(new colorFeatureExtractor());
 
 		// Display the window.
 		frame.pack();
