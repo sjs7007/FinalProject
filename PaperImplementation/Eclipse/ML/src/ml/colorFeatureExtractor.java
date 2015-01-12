@@ -34,7 +34,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 	JButton openTrainingFolderButton, openTestFolderButton, extractTrainingFeatures;
 	JTextArea log;
 	JFileChooser fc;
-	File trainData = new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/trainingImageResized"),testData =null,inputFileList=null,extractedFeatures=null;
+	File trainData = new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/trainingImageResized"),testData =null,inputFileList=null,extractedFeatures=null,trainFeatures=null;
 	String[] comboValues = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };	
 	JComboBox comboBox = new JComboBox(comboValues);
 	JComboBox comboBox_1 = new JComboBox(comboValues);
@@ -58,7 +58,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 		// to be selected. If you leave these lines commented out,
 		// then the default mode (FILES_ONLY) will be used.
 		//
-		 fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		
 		 openTestFolderButton = new JButton("Open test folder...");
 		 openTestFolderButton.setBounds(308, 12, 201, 51);
@@ -150,6 +150,98 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 				//add(log);
 				log.setMargin(new Insets(5, 5, 5, 5));
 				
+				JButton btnSelectTrainingData = new JButton("Select training features");
+				btnSelectTrainingData.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) 
+					{
+						int returnVal = fc.showOpenDialog(colorFeatureExtractor.this);
+
+						if (returnVal == JFileChooser.APPROVE_OPTION) {
+							trainFeatures = fc.getSelectedFile();
+							// This is where a real application would open the file.
+							log.append("Features selected for training : " + trainFeatures.toString() + "." + newline);				
+						} else {
+							log.append("Open command cancelled by user." + newline);
+						}
+						log.setCaretPosition(log.getDocument().getLength());
+					}
+				});
+				btnSelectTrainingData.setBounds(31, 407, 238, 51);
+				add(btnSelectTrainingData);
+				
+				JButton btnTrain = new JButton("Train");
+				btnTrain.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						if(trainFeatures==null)
+						{
+							trainFeatures = new File("results/colorFeatures"+textField.getText()+".train");
+							log.append("Default train data, i.e. colorFeatures"+textField.getText()+".train slected...\n");
+						}
+						
+						String modelName = "results/SVM"+textField.getText()+".model";				
+						String argv[]={trainFeatures.toString(),modelName};
+						
+						StringBuffer logData = new StringBuffer();
+						logData.append("\nSVM Train input : "+trainFeatures.getName()+"\n");
+						logData.append("SVM Model generated : "+modelName+"\n");
+						
+						Date start =new Date();
+						
+						logData.append("Start time : "+start.toString()+"\n");	
+						
+						
+						try {
+							svm_train.main(argv);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						Date end = new Date();
+						logData.append("End time : "+end.toString()+"\n");
+						
+						
+						long executionTimeMS = end.getTime()-start.getTime(); //in milliseconds
+						String executionTime = Float.toString((float)executionTimeMS/(60*1000))+" minutes";
+						
+						logData.append("Time take for training : "+executionTime+"\n");
+								
+						log.append(logData.toString());
+						String testNumber = textField.getText();
+						
+						
+						try {
+							FileWriter F = new FileWriter(new File("results/SVMTrain"+testNumber+".log"));
+							F.write(logData.toString());
+							F.flush();
+							F.close();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}
+				});
+				btnTrain.setBounds(31, 480, 238, 47);
+				add(btnTrain);
+				
+				JButton btnSelectTestingData = new JButton("Select testing features");
+				btnSelectTestingData.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+					}
+				});
+				btnSelectTestingData.setBounds(342, 407, 238, 51);
+				add(btnSelectTestingData);
+				
+				JButton btnPredict = new JButton("Predict");
+				btnPredict.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				btnPredict.setBounds(342, 476, 238, 51);
+				add(btnPredict);
+				
 			   
 
 	}
@@ -225,7 +317,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 				FileWriter F = new FileWriter(new File(testDirectory+"colorFeatureExtractorTrain"+testNumber+".log"));
 				StringBuffer logData = new StringBuffer();
 				
-				logData.append("Training Data : "+trainData.getName()+"\n");
+				logData.append("\nTraining Data : "+trainData.getName()+"\n");
 				logData.append("Number of images : "+nImages+"\n");
 				
 				
@@ -239,6 +331,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 				logData.append("Start time : "+start.toString()+"\n");
 						
 				ML.batchColorFeatureBuilder(trainData.toString(), N, C_h, C_s, C_v,extractedFeatures,inputFileList);
+			
 				
 				Date end = new Date();
 				logData.append("End time : "+end.toString()+"\n");
@@ -247,7 +340,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 				long executionTimeMS = end.getTime()-start.getTime(); //in milliseconds
 				String executionTime = Float.toString((float)executionTimeMS/(60*1000))+" minutes";
 				
-				logData.append("Execution Time : "+executionTime+"\n");
+				logData.append("Time take for feature extraction : "+executionTime+"\n");
 				
 				log.append(logData.toString());
 				F.write(logData.toString());
@@ -260,6 +353,7 @@ public class colorFeatureExtractor extends JPanel implements ActionListener {
 			}
             log.setCaretPosition(log.getDocument().getLength());
         }
+	
 	}
 
 	/** Returns an ImageIcon, or null if the path was invalid. */
