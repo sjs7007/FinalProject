@@ -15,7 +15,7 @@ F4|5|10|6|6|9000|10,000|8000|73.05%|
 
 We also tried it on the following [Kaggle Contest](https://www.kaggle.com/c/dogs-vs-cats/) for classifying images into whether they are cats or dogs and attained an accuracy of 0.74297. 
 
-!Kaggle Result[PaperImplementation/sample/kaggleTest2Result.png]
+![Kaggle Result](PaperImplementation/sample/kaggleTest2Result.png)
 
 ## [Link to the latest release : GUI Version 2](https://github.com/sjs7007/FinalProject/blob/master/PaperImplementation/jarReleases/GUI2ML.jar)
 
