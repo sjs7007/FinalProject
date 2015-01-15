@@ -22,28 +22,28 @@ We also tried it on the following [Kaggle Contest](https://www.kaggle.com/c/dogs
 ## How to start the application?
 
 ### On a terminal
-	+ You can just download it and cd to the location.
-	+ Then run the following command :
-		```
-		java -jar GUI2ML.jar
-		```
-	+ We suggest you use this method preferrably since some extra logs are outputted on terminal which will not be visible if you use the other methods below.
++ You can just download it and cd to the location.
++ Then run the following command :
+	```
+	java -jar GUI2ML.jar
+	```
++ We suggest you use this method preferrably since some extra logs are outputted on terminal which will not be visible if you use the other methods below.
 
 ### Direct GUI method on windows
-	+ First try double clicking on the jar file. If it doesn't work directly, perform the following steps: -
-		+ Start "Control Panel"
-	 	+ Click "Default Programs"
-	 	+ Click "Associate a file type or protocol with a specific program"
-		+ Double click .jar.
-		+ Browse C:\Program Files\Java\jre7\bin\javaw.exe.
-		+ Click the button Open.
-		+ Click the button OK.
++ First try double clicking on the jar file. If it doesn't work directly, perform the following steps: - 
+	+ Start "Control Panel"
+ 	+ Click "Default Programs"
+ 	+ Click "Associate a file type or protocol with a specific program"
+	+ Double click .jar.
+	+ Browse C:\Program Files\Java\jre7\bin\javaw.exe.
+	+ Click the button Open.
+	+ Click the button OK.
 	+ From now on you should be able to use the application just by double clicking it.
 
 ### Direct GUI method on Ubuntu/Mint
-	+ Right click the file, go to permissions and check the "Allow executing file as a program".
-	+ Now go to open with tab and select Open JDK <your java version number> runtime and click on set as default.
-	+ From now on you should be able to use the application just by double clicking it.
++ Right click the file, go to permissions and check the "Allow executing file as a program".
++ Now go to open with tab and select Open JDK <your java version number> runtime and click on set as default.
++ From now on you should be able to use the application just by double clicking it.
 
 ![Screenshot of latest version](PaperImplementation/sample/GUI2.png)
 
