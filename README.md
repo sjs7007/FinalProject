@@ -1,6 +1,6 @@
 # Using Color Features to Classify Images
 
-We here use the Color Feature extraction method present in the paper ["Machine Learning Attacks Against the Asirra CAPTCHA"](http://xenon.stanford.edu/~pgolle/papers/dogcat.pdf) to create a simple and easy to use interface for automatic image classification. We assume the users of this application have read this paper and are familiar with the basic idea of how it works.
+We here use the Color Feature extraction method presented in the paper ["Machine Learning Attacks Against the Asirra CAPTCHA"](http://xenon.stanford.edu/~pgolle/papers/dogcat.pdf) to create a simple and easy to use application for automatic image classification. We assume the users of this application have read this paper and are familiar with the basic idea of how it works.
 
 Here is a list of data sets on which we have tested it and the accuracy we have obtained :-
 
