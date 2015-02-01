@@ -156,6 +156,12 @@ Step 5 : Create GUI for above code.
 + [time difference](http://stackoverflow.com/questions/5911387/difference-in-time-between-two-dates-in-java)
 + [get current time](http://www.tutorialspoint.com/java/java_date_time.htm)
 + [create directory](http://www.mkyong.com/java/how-to-create-directory-in-java/)
++ [how to add scrollbars in java jtext area](http://stackoverflow.com/questions/1052473/scrollbars-in-jtextarea)
+	+ add jtext area
+	+ select suround with jscroll by right click in eclipse
+	+ change vertical and horizontal scroll bar para as needed.
+
+	Other things I generally do : change layout from content pane to absolute.
 
 How to use GUI
 

@@ -10,3 +10,5 @@ FinalProject
 + [ppt 2](http://www.cs.bham.ac.uk/~axk/ML_SVM05.ppt)
 
 http://svm.research.bell-labs.com/
+
+http://www.csie.ntu.edu.tw/~cjlin/libsvm/R_example.html

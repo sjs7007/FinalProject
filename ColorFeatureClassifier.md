@@ -1,6 +1,6 @@
 # Using Color Features to Classify Images
 
-We here use the Color Feature extraction method presented in the paper ["Machine Learning Attacks Against the Asirra CAPTCHA"](http://xenon.stanford.edu/~pgolle/papers/dogcat.pdf) to create a simple and easy to use application for automatic image classification. We assume the users of this application have read this paper and are familiar with the basic idea of how it works.
+We here use the Color Feature extraction method present in the paper ["Machine Learning Attacks Against the Asirra CAPTCHA"](http://xenon.stanford.edu/~pgolle/papers/dogcat.pdf) to create a simple and easy to use interface for automatic image classification. We assume the users of this application have read this paper and are familiar with the basic idea of how it works.
 
 Here is a list of data sets on which we have tested it and the accuracy we have obtained :-
 
@@ -15,7 +15,7 @@ F4|5|10|6|6|9000|10,000|8000|73.05%|
 
 We also tried it on the following [Kaggle Contest](https://www.kaggle.com/c/dogs-vs-cats/) for classifying images into whether they are cats or dogs and attained an accuracy of 0.74297. 
 
-![Kaggle Result](PaperImplementation/sample/kaggleTest2Result.png)
+!Kaggle Result[PaperImplementation/sample/kaggleTest2Result.png]
 
 ## [Link to the latest release : GUI Version 2](https://github.com/sjs7007/FinalProject/blob/master/PaperImplementation/jarReleases/GUI2ML.jar)
 
