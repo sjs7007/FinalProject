@@ -217,3 +217,11 @@ java -jar <jar-file-name>.jar
 Or in Ubuntu :
 1. Allow executing file as program by right clicking.
 2. Set default open with to open jdk run time.
+
+### +  Color Features Results
+Feature Set| N | Cs | Ch | Cv |  #features  |Total Images|Training Images|Accuracy|
+:---------:|:-:|:--:|:--:|:--:|:-----------:|:-----:|:--------:|:--------:|
+F1|1|10|10|10|1000|5000|4000|65.9%
+F2|3|10|8|8|5760|5000|4000|71.5%
+F3|5|10|6|6|9000|5000|4000|70.9%|
+F4|5|10|6|6|9000|10,000|8000|73.05%|
