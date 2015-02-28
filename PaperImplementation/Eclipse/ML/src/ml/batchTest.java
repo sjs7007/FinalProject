@@ -38,7 +38,7 @@ public class batchTest
 	{
 		Date start,end;
 		
-		System.out.println("Test Number : "+count+"/"+(N*C_h*C_s*C_v));
+		System.out.println("Test Number : "+count);
 		System.out.println("N="+N+",C_h="+C_h+",C_s="+C_s+",C_v="+C_v);
 		
 	    String ip = new String("/home/shinchan/Downloads/zipFiles/batchTest");
