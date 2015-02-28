@@ -282,7 +282,7 @@ class ML
     	
     	for(int i=0;i<nImages;i++)
     	{
-    		System.out.print("On file number :"+(i+1)+", "+allImages[i].getName() + "\n");
+    		//System.out.print("On file number :"+(i+1)+", "+allImages[i].getName() + "\n");
     		
     		String fileNameWithOutExt = FilenameUtils.removeExtension(allImages[i].getName());
 
@@ -330,5 +330,6 @@ class ML
        int N=5,C_h=10,C_s=6,C_v=6;
        String ip = new String("/home/shinchan/Downloads/zipFiles/testResized");
        fileData allImageData[]=batchColorFeatureBuilder(ip, N, C_h, C_s, C_v,new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/continuousTest2.train"),new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/output/filesInputTest2.txt")); 
+       
     }
 }
