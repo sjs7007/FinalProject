@@ -11,10 +11,22 @@ public class batchTest
 	public static void main(String args[]) throws IOException
 	{
 		int N=5,C_h=10,C_s=6,C_v=6;
+		int count=1;
 		
-		for(int i=1;i<=20;i++)
+		for(int n=3;n<=10;n=n+3)
 		{
-			predictM(i,C_h,C_s,C_v);
+			for(int h=3;h<=10;h=h+3)
+			{
+				for(int s=3;s<=10;s=s+3)
+				{
+					for(int v=3;v<=10;v=v+3)
+					{
+						predictM(count,n,h,s,v);
+						count++;
+					}
+				}
+			}
+			
 		}
 		
 	
@@ -22,10 +34,11 @@ public class batchTest
 
 	}
 	
-	public static void predictM(int N,int C_h,int C_s,int C_v) throws IOException
+	public static void predictM(int count,int N,int C_h,int C_s,int C_v) throws IOException
 	{
 		Date start,end;
 		
+		System.out.println("Test Number : "+count+"/"+(N*C_h*C_s*C_v));
 		System.out.println("N="+N+",C_h="+C_h+",C_s="+C_s+",C_v="+C_v);
 		
 	    String ip = new String("/home/shinchan/Downloads/zipFiles/batchTest");
@@ -65,7 +78,6 @@ public class batchTest
 	
 		String argv[]={testFeatures.toString(),modelFile.toString(),resultsName};
 		svm_predict.main(argv);
-		
 
 		end = new Date();
 		//System.out.print("End time for prediction : "+end.toString()+"\n");
