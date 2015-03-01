@@ -38,9 +38,9 @@ public class formatConverter
 	
 	public static void main(String args[]) throws IOException
 	{
-		File fileNames=new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/output/filesInputTest2.txt");
-		File predictionResult=new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/output/test2.result");
-		File kaggleCSV = new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/output/test2.kaggle.csv");
+		File fileNames=new File("/home/shinchan/results/kaggleTestData.list");
+		File predictionResult=new File("/home/shinchan/results/SVMKaggleTestData2.result");
+		File kaggleCSV = new File("/home/shinchan/results/kaggleTestData2.csv");
 		toKaggleCSV(fileNames,predictionResult,kaggleCSV);
 	}
 }

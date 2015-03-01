@@ -70,5 +70,5 @@ We also tried it on the following [Kaggle Contest](https://www.kaggle.com/c/dogs
 + Select test features by clicking the "Select testing features" button.
 + Select the model to be used for testing. If no model is selected, by default, the model generated in training step is used.
 + Click on predict.
-+ The results are generated and stored in a .results file inside the results folder. If the input data used for testing was labelled, a meaningful classification accuracy value is also outputted on the terminal else the value generated is just arbitrary. 
++ The results are generated and stored in a .results file inside the results folder. If the input data used for testing was labelled, a meaningful classification accuracy value is also outputted on the terminal else the value generated is just arbitrary.    
 
