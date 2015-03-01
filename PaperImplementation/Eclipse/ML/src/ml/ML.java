@@ -299,9 +299,37 @@ class ML
     		{
     			allImageData[i]=new fileData(1,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
     		}
-    		else
+    		else if(allImages[i].getName().contains("airplane"))
     		{
-    			allImageData[i]=new fileData(-1,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    			allImageData[i]=new fileData(2,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    		}
+    		else if(allImages[i].getName().contains("automobile"))
+    		{
+    			allImageData[i]=new fileData(3,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    		}
+    		else if(allImages[i].getName().contains("bird"))
+    		{
+    			allImageData[i]=new fileData(4,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    		}
+    		else if(allImages[i].getName().contains("deer"))
+    		{
+    			allImageData[i]=new fileData(5,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    		}
+    		else if(allImages[i].getName().contains("frog"))
+    		{
+    			allImageData[i]=new fileData(6,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    		}
+    		else if(allImages[i].getName().contains("horse"))
+    		{
+    			allImageData[i]=new fileData(7,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    		}
+    		else if(allImages[i].getName().contains("ship"))
+    		{
+    			allImageData[i]=new fileData(8,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    		}
+    		else if(allImages[i].getName().contains("truck"))
+    		{
+    			allImageData[i]=new fileData(9,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
     		}
     		
     		//store intermed. results start here

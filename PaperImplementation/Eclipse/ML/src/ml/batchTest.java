@@ -13,13 +13,14 @@ public class batchTest
 		int N=5,C_h=10,C_s=6,C_v=6;
 		int count=1;
 		
-		for(int n=3;n<=10;n=n+3)
+		for(int n=6;n<=10;n=n+1)
 		{
-			for(int h=3;h<=10;h=h+3)
+			for(int h=5;h<=10;h=h+1)
 			{
-				for(int s=3;s<=10;s=s+3)
+				for(int s=5;s<=10;s=s+1)
 				{
-					for(int v=3;v<=10;v=v+3)
+					for(int v=5;v<=10;v=v+1)
+					//int h=10,s=10,v=10;
 					{
 						predictM(count,n,h,s,v);
 						count++;
@@ -41,7 +42,7 @@ public class batchTest
 		System.out.println("Test Number : "+count);
 		System.out.println("N="+N+",C_h="+C_h+",C_s="+C_s+",C_v="+C_v);
 		
-	    String ip = new String("/home/shinchan/Downloads/zipFiles/batchTest");
+	    String ip = new String("/home/shinchan/graphAccuracy/ga2");
 
 		start =new Date();
 		//System.out.print("Start time for feature extraction : "+start.toString()+"\n");	
