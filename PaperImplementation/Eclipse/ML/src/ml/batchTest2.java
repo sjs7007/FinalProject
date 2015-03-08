@@ -29,6 +29,8 @@ public class batchTest2
 			
 		}
 		
+		//predictM(count,10,8,6,6);
+		
 	
                                                                
 
@@ -57,7 +59,7 @@ public class batchTest2
 		//logData.append("Time taken for feature extraction from training images: "+executionTime+"\n");
 		
 		//extract test features
-		ip = new String("/home/shinchan/graphAccuracy/ga2");
+		ip = new String("/home/shinchan/graphAccuracy/ga3");
 		start =new Date();
 	    ML.batchColorFeatureBuilder(ip, N, C_h, C_s, C_v,new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/results/batchTest.test"),new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/results/batchTest.list")); 
 	    end = new Date();
