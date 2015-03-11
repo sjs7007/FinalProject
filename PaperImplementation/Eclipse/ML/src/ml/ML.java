@@ -163,7 +163,7 @@ class ML
         
         float Ch=C_h,Cs=C_s,Cv=C_v;
         
-        int cellSize=250/N, count=0;
+        int cellSize=cellDimension/N, count=0;
         
         for(int i=0;i<N;i++)
         {
