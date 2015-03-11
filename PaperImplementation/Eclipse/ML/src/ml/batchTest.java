@@ -47,7 +47,7 @@ public class batchTest
 		start =new Date();
 		//System.out.print("Start time for feature extraction : "+start.toString()+"\n");	
 	    
-	    ML.batchColorFeatureBuilder(ip, N, C_h, C_s, C_v,new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/results/batchTest.test"),new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/results/batchTest.list")); 
+	    ML.batchColorFeatureBuilder(ip, N, C_h, C_s, C_v,new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/results/batchTest.test"),new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/results/batchTest.list"), cellDimension); 
 	    
 	    end = new Date();
 		//System.out.print("End time for feature extraction : "+end.toString()+"\n");

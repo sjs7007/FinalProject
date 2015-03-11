@@ -180,6 +180,7 @@ public class colorFeatureExtractPredict extends JPanel implements ActionListener
 					int C_h = Integer.parseInt(comboBox_1.getSelectedItem().toString());
 					int C_s = Integer.parseInt(comboBox_2.getSelectedItem().toString());
 					int C_v = Integer.parseInt(comboBox_3.getSelectedItem().toString());
+					int cellDimension=250;
 
 					File file = new File("results");
 					if (!file.exists()) 
@@ -218,7 +219,7 @@ public class colorFeatureExtractPredict extends JPanel implements ActionListener
 
 					logData.append("Start time : "+start.toString()+"\n");
 
-					ML.batchColorFeatureBuilder(testData.toString(), N, C_h, C_s, C_v,extractedFeatures,inputFileList);
+					ML.batchColorFeatureBuilder(testData.toString(), N, C_h, C_s, C_v,extractedFeatures,inputFileList, cellDimension);
 
 
 					Date end = new Date();
@@ -454,6 +455,7 @@ public class colorFeatureExtractPredict extends JPanel implements ActionListener
 				int C_h = Integer.parseInt(comboBox_1.getSelectedItem().toString());
 				int C_s = Integer.parseInt(comboBox_2.getSelectedItem().toString());
 				int C_v = Integer.parseInt(comboBox_3.getSelectedItem().toString());
+				int cellDimension=250;
 
 				File file = new File("results");
 				if (!file.exists()) 
@@ -492,7 +494,7 @@ public class colorFeatureExtractPredict extends JPanel implements ActionListener
 
 				logData.append("Start time : "+start.toString()+"\n");
 
-				ML.batchColorFeatureBuilder(trainData.toString(), N, C_h, C_s, C_v,extractedFeatures,inputFileList);
+				ML.batchColorFeatureBuilder(trainData.toString(), N, C_h, C_s, C_v,extractedFeatures,inputFileList, cellDimension);
 
 
 				Date end = new Date();
