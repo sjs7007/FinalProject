@@ -122,7 +122,16 @@ class svm_predict {
 		}
 		else
 		{
-			String confusionPrint="Confusion Matrix \n"+confusion[0][0]+" "+confusion[0][1]+"\n"+confusion[1][0]+" "+confusion[1][1]+"\n";
+			//String confusionPrint="Confusion Matrix \n"+confusion[0][0]+" "+confusion[0][1]+"\n"+confusion[1][0]+" "+confusion[1][1]+"\n";
+			String confusionPrint="Confusion Matrix \n";
+			for(int i=0;i<nr_class;i++)
+			{
+				for(int j=0;j<nr_class;j++)
+				{
+					confusionPrint+=confusion[i][j]+" ";
+				}
+				confusionPrint+="\n";
+			}
 			svm_predict.info(confusionPrint+"Accuracy = "+(double)correct/total*100+
 				 "% ("+correct+"/"+total+") (classification)\n");
 		}
