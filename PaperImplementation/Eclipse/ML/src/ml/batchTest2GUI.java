@@ -15,13 +15,13 @@ import javax.swing.JLabel;
 public class batchTest2GUI extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtNStartValue;
-	private JTextField txtNEndValue;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField nStart;
+	private JTextField nEnd;
+	private JTextField C_hStart;
+	private JTextField C_hEnd;
+	private JTextField C_sStart;
+	private JTextField C_sEnd;
+	private JTextField C_vStart;
 	private JTextField textField_5;
 	private JLabel lblImageDimension;
 	private JTextField textField_6;
@@ -71,17 +71,17 @@ public class batchTest2GUI extends JFrame {
 		btnSelectTestFolder.setBounds(84, 54, 226, 25);
 		contentPane.add(btnSelectTestFolder);
 		
-		txtNStartValue = new JTextField();
-		txtNStartValue.setText("5");
-		txtNStartValue.setBounds(118, 132, 45, 19);
-		contentPane.add(txtNStartValue);
-		txtNStartValue.setColumns(10);
+		nStart = new JTextField();
+		nStart.setText("5");
+		nStart.setBounds(118, 132, 45, 19);
+		contentPane.add(nStart);
+		nStart.setColumns(10);
 		
-		txtNEndValue = new JTextField();
-		txtNEndValue.setText("10");
-		txtNEndValue.setColumns(10);
-		txtNEndValue.setBounds(265, 132, 45, 19);
-		contentPane.add(txtNEndValue);
+		nEnd = new JTextField();
+		nEnd.setText("10");
+		nEnd.setColumns(10);
+		nEnd.setBounds(265, 132, 45, 19);
+		contentPane.add(nEnd);
 		
 		JLabel lblStar = new JLabel("Range Start");
 		lblStar.setBounds(95, 105, 91, 15);
@@ -99,43 +99,43 @@ public class batchTest2GUI extends JFrame {
 		lblCh.setBounds(69, 169, 31, 19);
 		contentPane.add(lblCh);
 		
-		textField = new JTextField();
-		textField.setText("5");
-		textField.setColumns(10);
-		textField.setBounds(118, 169, 45, 19);
-		contentPane.add(textField);
+		C_hStart = new JTextField();
+		C_hStart.setText("5");
+		C_hStart.setColumns(10);
+		C_hStart.setBounds(118, 169, 45, 19);
+		contentPane.add(C_hStart);
 		
-		textField_1 = new JTextField();
-		textField_1.setText("10");
-		textField_1.setColumns(10);
-		textField_1.setBounds(265, 169, 45, 19);
-		contentPane.add(textField_1);
+		C_hEnd = new JTextField();
+		C_hEnd.setText("10");
+		C_hEnd.setColumns(10);
+		C_hEnd.setBounds(265, 169, 45, 19);
+		contentPane.add(C_hEnd);
 		
 		JLabel lblCs = new JLabel("C_s");
 		lblCs.setBounds(69, 200, 31, 19);
 		contentPane.add(lblCs);
 		
-		textField_2 = new JTextField();
-		textField_2.setText("5");
-		textField_2.setColumns(10);
-		textField_2.setBounds(118, 200, 45, 19);
-		contentPane.add(textField_2);
+		C_sStart = new JTextField();
+		C_sStart.setText("5");
+		C_sStart.setColumns(10);
+		C_sStart.setBounds(118, 200, 45, 19);
+		contentPane.add(C_sStart);
 		
-		textField_3 = new JTextField();
-		textField_3.setText("10");
-		textField_3.setColumns(10);
-		textField_3.setBounds(265, 200, 45, 19);
-		contentPane.add(textField_3);
+		C_sEnd = new JTextField();
+		C_sEnd.setText("10");
+		C_sEnd.setColumns(10);
+		C_sEnd.setBounds(265, 200, 45, 19);
+		contentPane.add(C_sEnd);
 		
 		JLabel label = new JLabel("C_v");
 		label.setBounds(69, 231, 31, 19);
 		contentPane.add(label);
 		
-		textField_4 = new JTextField();
-		textField_4.setText("5");
-		textField_4.setColumns(10);
-		textField_4.setBounds(118, 231, 45, 19);
-		contentPane.add(textField_4);
+		C_vStart = new JTextField();
+		C_vStart.setText("5");
+		C_vStart.setColumns(10);
+		C_vStart.setBounds(118, 231, 45, 19);
+		contentPane.add(C_vStart);
 		
 		textField_5 = new JTextField();
 		textField_5.setText("10");
