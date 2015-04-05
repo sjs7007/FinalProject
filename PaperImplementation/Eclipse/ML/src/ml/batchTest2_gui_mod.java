@@ -74,11 +74,11 @@ public class batchTest2_gui_mod
 		
 
 	    //file declarations
-	    File trainFeatures = new File("results/batchTest.train");
-	    File testFeatures = new File("results/batchTest.test");
-	    File modelFile = new File("results/batchTest.model");
-	    File logFile = new File("results/batchTest.log");
-		String resultsName = "results/batchTest.result";		
+	    File trainFeatures = new File("batchTest.train");
+	    File testFeatures = new File("batchTest.test");
+	    File modelFile = new File("batchTest.model");
+	    File logFile = new File("batchTest.log");
+		String resultsName = "batchTest.result";		
     	FileWriter op = new FileWriter(logFile.toString());
 
 
