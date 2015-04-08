@@ -42,6 +42,7 @@ public class colorFeatureExtractPredict extends JPanel implements ActionListener
 	JComboBox comboBox_2 = new JComboBox(comboValues);
 	JComboBox comboBox_3 = new JComboBox(comboValues);
 	private JTextField textField;
+	private JTextField imageDimension;
 
 	public colorFeatureExtractPredict() {
 
@@ -65,14 +66,14 @@ public class colorFeatureExtractPredict extends JPanel implements ActionListener
 		openTestFolderButton.setBounds(308, 12, 201, 51);
 		openTestFolderButton.addActionListener(this);
 
-		extractTrainingFeatures = new JButton("Run on Training Data");
+		extractTrainingFeatures = new JButton("Extract Training Features");
 		extractTrainingFeatures.setBounds(28, 108, 238, 47);
 		extractTrainingFeatures.addActionListener(this);
 		setLayout(null);
 
 		// For layout purposes, put the buttons in a separate panel
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setBounds(12, 0, 757, 381);
+		buttonPanel.setBounds(12, 0, 800, 381);
 		buttonPanel.setLayout(null);
 		buttonPanel.add(openTestFolderButton);
 		buttonPanel.add(extractTrainingFeatures);
@@ -123,13 +124,13 @@ public class colorFeatureExtractPredict extends JPanel implements ActionListener
 		comboBox_3.setSelectedIndex(5);
 		buttonPanel.add(comboBox_3);
 
-		JLabel lblNewLabel = new JLabel("Test Number :");
+		JLabel lblNewLabel = new JLabel("Test Number ");
 		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 20));
-		lblNewLabel.setBounds(28, 185, 178, 35);
+		lblNewLabel.setBounds(308, 167, 178, 35);
 		buttonPanel.add(lblNewLabel);
 
 		textField = new JTextField("Default");
-		textField.setBounds(204, 190, 114, 29);
+		textField.setBounds(318, 208, 114, 29);
 		buttonPanel.add(textField);
 		textField.setColumns(10);
 		openTrainingFolderButton.addActionListener(this);
@@ -169,7 +170,7 @@ public class colorFeatureExtractPredict extends JPanel implements ActionListener
 		btnSelectTrainingData.setBounds(31, 407, 238, 51);
 		add(btnSelectTrainingData);
 
-		JButton extractTestingFeatures = new JButton("Run on Test Data");
+		JButton extractTestingFeatures = new JButton("Extract Testing FEatures");
 		extractTestingFeatures.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -180,7 +181,7 @@ public class colorFeatureExtractPredict extends JPanel implements ActionListener
 					int C_h = Integer.parseInt(comboBox_1.getSelectedItem().toString());
 					int C_s = Integer.parseInt(comboBox_2.getSelectedItem().toString());
 					int C_v = Integer.parseInt(comboBox_3.getSelectedItem().toString());
-					int cellDimension=250;
+					int cellDimension=Integer.parseInt(imageDimension.getText());
 
 					File file = new File("results");
 					if (!file.exists()) 
@@ -246,6 +247,20 @@ public class colorFeatureExtractPredict extends JPanel implements ActionListener
 		});
 		extractTestingFeatures.setBounds(308, 108, 201, 47);
 		buttonPanel.add(extractTestingFeatures);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(410, 235, 3, 3);
+		buttonPanel.add(scrollPane);
+		
+		JLabel lblCellDimension = new JLabel("Cell Dimension ");
+		lblCellDimension.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblCellDimension.setBounds(55, 167, 201, 30);
+		buttonPanel.add(lblCellDimension);
+		
+		imageDimension = new JTextField("250");
+		imageDimension.setColumns(10);
+		imageDimension.setBounds(77, 208, 114, 29);
+		buttonPanel.add(imageDimension);
 
 		JButton btnTrain = new JButton("Train");
 		btnTrain.addActionListener(new ActionListener() {
