@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 
-public class batchTest2 
+public class batchTest2_gui_mod
 {
 	public static void main(String args[]) throws IOException
 	{
@@ -23,7 +23,7 @@ public class batchTest2
 					for(int v=5;v<=10;v=v+1)
 					//int h=10,s=10,v=10;
 					{
-						predictM(count,n,h,s,v,cellDimension);
+						predictM(count,n,h,s,v,cellDimension, null, null);
 						count++;
 					}
 				}                                                                                                     
@@ -38,7 +38,7 @@ public class batchTest2
 
 	}
 	
-	public static void predictM(int count,int N,int C_h,int C_s,int C_v,int cellDimension) throws IOException
+	public static void predictM(int count,int N,int C_h,int C_s,int C_v,int cellDimension, String trainFolder, String testFolder) throws IOException
 	{
 		Date start,end;
 		String ip,executionTime;
@@ -51,9 +51,10 @@ public class batchTest2
 		//logData.append("Test Number : "+count+"\n"+"N="+N+",C_h="+C_h+",C_s="+C_s+",C_v="+C_v+"\n");
 		
 		//extract train features
-		ip = new String("/home/shinchan/graphAccuracy/200TrainResized");
+		//ip = new String("/home/shinchan/graphAccuracy/200TrainResized");
+		
 		start =new Date();	    
-	    ML.batchColorFeatureBuilder(ip, N, C_h, C_s, C_v,new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/results/batchTest.train"),new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/results/batchTest.list"), cellDimension); 
+	    ML.batchColorFeatureBuilder(trainFolder, N, C_h, C_s, C_v,new File("batchTest.train"),new File("batchTest.list"), cellDimension); 
 	    end = new Date();		
 		executionTimeMS = end.getTime()-start.getTime(); //in milliseconds
 		executionTime = Float.toString((float)executionTimeMS/(60*1000))+" minutes";
@@ -61,9 +62,9 @@ public class batchTest2
 		//logData.append("Time taken for feature extraction from training images: "+executionTime+"\n");
 		
 		//extract test features
-		ip = new String("/home/shinchan/graphAccuracy/ga3");
+		//ip = new String("/home/shinchan/graphAccuracy/ga3");
 		start =new Date();
-	    ML.batchColorFeatureBuilder(ip, N, C_h, C_s, C_v,new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/results/batchTest.test"),new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/results/batchTest.list"), cellDimension); 
+	    ML.batchColorFeatureBuilder(testFolder, N, C_h, C_s, C_v,new File("batchTest.test"),new File("batchTest.list"), cellDimension); 
 	    end = new Date();
 		executionTimeMS = end.getTime()-start.getTime(); //in milliseconds
 		executionTime = Float.toString((float)executionTimeMS/(60*1000))+" minutes";
@@ -73,11 +74,11 @@ public class batchTest2
 		
 
 	    //file declarations
-	    File trainFeatures = new File("results/batchTest.train");
-	    File testFeatures = new File("results/batchTest.test");
-	    File modelFile = new File("results/batchTest.model");
-	    File logFile = new File("results/batchTest.log");
-		String resultsName = "results/batchTest.result";		
+	    File trainFeatures = new File("batchTest.train");
+	    File testFeatures = new File("batchTest.test");
+	    File modelFile = new File("batchTest.model");
+	    File logFile = new File("batchTest.log");
+		String resultsName = "batchTest.result";		
     	FileWriter op = new FileWriter(logFile.toString());
 
 

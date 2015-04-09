@@ -41,10 +41,12 @@ class svm_predict {
 		int total = 0;
 		double error = 0;
 		double sumv = 0, sumy = 0, sumvv = 0, sumyy = 0, sumvy = 0;
+		
 
 		int svm_type=svm.svm_get_svm_type(model);
 		int nr_class=svm.svm_get_nr_class(model);
 		double[] prob_estimates=null;
+		int confusion[][]=new int[nr_class][nr_class];
 
 		if(predict_probability == 1)
 		{
@@ -95,6 +97,9 @@ class svm_predict {
 				v = svm.svm_predict(model,x);
 				output.writeBytes(v+"\n");
 			}
+			
+			//System.out.println(v+" "+target);
+			confusion[(int)(target)][(int)(v)]++;
 
 			if(v == target)
 				++correct;
@@ -116,8 +121,20 @@ class svm_predict {
 				 " (regression)\n");
 		}
 		else
-			svm_predict.info("Accuracy = "+(double)correct/total*100+
+		{
+			//String confusionPrint="Confusion Matrix \n"+confusion[0][0]+" "+confusion[0][1]+"\n"+confusion[1][0]+" "+confusion[1][1]+"\n";
+			String confusionPrint="Confusion Matrix \n";
+			for(int i=0;i<nr_class;i++)
+			{
+				for(int j=0;j<nr_class;j++)
+				{
+					confusionPrint+=confusion[i][j]+" ";
+				}
+				confusionPrint+="\n";
+			}
+			svm_predict.info(confusionPrint+"Accuracy = "+(double)correct/total*100+
 				 "% ("+correct+"/"+total+") (classification)\n");
+		}
 	}
 
 	private static void exit_with_help()

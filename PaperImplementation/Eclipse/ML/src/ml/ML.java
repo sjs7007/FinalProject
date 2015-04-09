@@ -157,13 +157,13 @@ class ML
      * Method that takes in as input and returns feature vector for colors.
      */
     
-    public static BitVector colorFeatureBuilder(hsv hsvImage[][],int N,int C_h,int C_s,int C_v)
+    public static BitVector colorFeatureBuilder(hsv hsvImage[][],int N,int C_h,int C_s,int C_v, int cellDimension)
     {
         BitVector feature=new BitVector(N*N*C_h*C_s*C_v); //color feature vector
         
         float Ch=C_h,Cs=C_s,Cv=C_v;
         
-        int cellSize=250/N, count=0;
+        int cellSize=cellDimension/N, count=0;
         
         for(int i=0;i<N;i++)
         {
@@ -267,7 +267,7 @@ class ML
      * Each feature vector is stored along with type=cat/dog together as an element in vector of ADT : fileData
      */
   
-    public static fileData[] batchColorFeatureBuilder(String ip,int N,int C_h,int C_s,int C_v, File trainFile,File fileInputList) throws IOException
+    public static fileData[] batchColorFeatureBuilder(String ip,int N,int C_h,int C_s,int C_v, File trainFile,File fileInputList, int cellDimension) throws IOException
     {
     	//get array of all files 
     	
@@ -293,43 +293,43 @@ class ML
     		//System.out.println(allImages[i].getName());
     		if(allImages[i].getName().contains("cat")) //1=dog, 0=cat, -1=unknown
     		{
-    			allImageData[i]=new fileData(0,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    			allImageData[i]=new fileData(0,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v, cellDimension ));
     		}
     		else if(allImages[i].getName().contains("dog"))
     		{
-    			allImageData[i]=new fileData(1,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    			allImageData[i]=new fileData(1,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v, cellDimension ));
     		}
     		else if(allImages[i].getName().contains("airplane"))
     		{
-    			allImageData[i]=new fileData(2,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    			allImageData[i]=new fileData(2,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v, cellDimension ));
     		}
     		else if(allImages[i].getName().contains("automobile"))
     		{
-    			allImageData[i]=new fileData(3,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    			allImageData[i]=new fileData(3,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v, cellDimension ));
     		}
     		else if(allImages[i].getName().contains("bird"))
     		{
-    			allImageData[i]=new fileData(4,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    			allImageData[i]=new fileData(4,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v, cellDimension ));
     		}
     		else if(allImages[i].getName().contains("deer"))
     		{
-    			allImageData[i]=new fileData(5,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    			allImageData[i]=new fileData(5,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v, cellDimension ));
     		}
     		else if(allImages[i].getName().contains("frog"))
     		{
-    			allImageData[i]=new fileData(6,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    			allImageData[i]=new fileData(6,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v, cellDimension ));
     		}
     		else if(allImages[i].getName().contains("horse"))
     		{
-    			allImageData[i]=new fileData(7,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    			allImageData[i]=new fileData(7,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v, cellDimension ));
     		}
     		else if(allImages[i].getName().contains("ship"))
     		{
-    			allImageData[i]=new fileData(8,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    			allImageData[i]=new fileData(8,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v, cellDimension ));
     		}
     		else if(allImages[i].getName().contains("truck"))
     		{
-    			allImageData[i]=new fileData(9,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v));
+    			allImageData[i]=new fileData(9,colorFeatureBuilder(img2RGB2HSV(new File(allImages[i].toURI())), N, C_h, C_s, C_v, cellDimension ));
     		}
     		
     		//store intermed. results start here
@@ -355,9 +355,9 @@ class ML
     
     public static void main(String args[]) throws IOException
     {
-       int N=5,C_h=10,C_s=6,C_v=6;
+       int N=5,C_h=10,C_s=6,C_v=6,cellDimension=250;
        String ip = new String("/home/shinchan/Downloads/zipFiles/testResized");
-       fileData allImageData[]=batchColorFeatureBuilder(ip, N, C_h, C_s, C_v,new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/continuousTest2.train"),new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/output/filesInputTest2.txt")); 
+       fileData allImageData[]=batchColorFeatureBuilder(ip, N, C_h, C_s, C_v,new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/input/continuousTest2.train"),new File("/home/shinchan/FinalProject/PaperImplementation/Eclipse/ML/output/filesInputTest2.txt"), cellDimension); 
        
     }
 }
